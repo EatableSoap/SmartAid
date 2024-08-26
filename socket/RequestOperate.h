@@ -10,7 +10,7 @@ namespace RequestOperate {
 QJsonObject& UserLogin(int identity, qlonglong UserID, QString& RSA);
 //身份为1表示是医生,selfaddress表示家庭住址/所属科室
 QJsonObject& UserRegister(int identity,qlonglong UserID,QString& password,
-                    int age,QString& sex,QString& PhoneNumber,QString& selfaddress,
+                    QString& UserName,int age,QString& sex,QString& PhoneNumber,QString& selfaddress,
                     QString& signature);
 //从本地选择一张图片，然后上传到服务器
 QJsonObject& UploadAvatar(int identity, qlonglong UserID, QByteArray& AvatarPic);
@@ -20,12 +20,12 @@ QJsonObject& RegistrationInfo(QString& Apartment);
 QVector<int>& QueryDoctorFree(qlonglong DoctorID);
 //接受预约ID，患者ID，医生ID，预约时间戳，预约时长，无返回
 QJsonObject& Registration(int AppointmentID, qlonglong PatientID,qlonglong DoctorID,int CurTime,int duration);
+//接受身份和账号ID，返回个人信息
+QJsonObject& QueryProfiles(int identity, qlonglong UserID);
 //接受患者ID，返回患者基本信息，预约时间，就诊科室，医生ID，医生诊断、处方和医嘱
 QJsonObject& QueryMedicalRecord(qlonglong PatientID);
 //接受患者ID，返回患者历史处方和缴费信息
 QJsonObject& QueryPrescriptionPay(qlonglong PatientID);
-//接受医生ID，返回医生信息
-QJsonObject& QueryDoctorInfo(qlonglong DoctorID);
 //接受账号ID，返回患者头像，医生头像，医生姓名，患者姓名
 QJsonObject& DPCommunication(int identity,qlonglong PatientID);
 //身份为1表示是医生,selfaddress表示家庭住址/所属科室
