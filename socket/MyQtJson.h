@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QJsonArray>
 
 namespace MyQtJson {
 //接受Qt二进制流数据，输出对应的jsonObject,用完记得delete

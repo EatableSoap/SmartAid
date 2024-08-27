@@ -434,7 +434,7 @@ QJsonObject* RequestOperate::QueryMedicalRecord(qlonglong PatientID){
             }
             else{
                 //查询成功，将一次的病历插入返回信息中
-                QJsonObject* docProfile = QueryProfiles(1,QueryResult.value(1).toLongLong());
+                QJsonObject* docProfile = QueryProfiles(1,QueryResult->value(1).toLongLong());
                 QJsonObject aReport;
                 QJsonObject DocName = docProfile->value("ReturnValue").toObject();
                 aReport.insert("AppointmentTime",QueryResult->value(3).toInt());
@@ -564,7 +564,7 @@ QJsonObject* RequestOperate::DPCommunication(int identity,qlonglong UserID){
         do {
             QJsonObject aUser;
             //获取历史记录的姓名和头像
-            QJsonObject* user=QueryProfiles(!identity,QueryResult.value(!identity).toLongLong());
+            QJsonObject* user=QueryProfiles(!identity,QueryResult->value(!identity).toLongLong());
             QString Name = user->value("ReturnValue").toObject().value("Name").toString();
             QString Avatar = user->value("ReturnValue").toObject().value("Avatar").toString();
             //获取缓存图片地址
@@ -599,7 +599,7 @@ QJsonObject* RequestOperate::EditProfile(int identity,qlonglong UserID,QString& 
 
     if(NewPassword.size()&&OldPassword.size()){
         QJsonObject* pwd = UserLogin(identity,UserID,OldPassword);
-        isRight = pwd->value("Result") == "登录成功！";
+        isRight = pwd->value("Result").toString() == "登录成功！";
         if(isRight){
             UpdateAtt.insert("TableName",identi+"LoginInfo");
 
