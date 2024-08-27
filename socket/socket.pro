@@ -9,16 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Client.cpp \
     FileOperate.cpp \
     MyQtJson.cpp \
     RequestOperate.cpp \
+    Server.cpp \
     main.cpp
 
 HEADERS += \
+    Client.h \
     DataBaseInterface.h \
     FileOperate.h \
     MyQtJson.h \
-    RequestOperate.h
+    RequestOperate.h \
+    Server.h
 
 FORMS +=
 

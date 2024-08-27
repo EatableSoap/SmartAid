@@ -5,9 +5,9 @@
 #include "DataBaseInterface.h"
 #include "FileOperate.h"
 
-#include <QtNetwork/QtNetwork>
 #include <QPixmap>
 #include <QDateTime>
+#include <QJsonArray>
 
 namespace RequestOperate {
 //身份为1表示是医生,接受身份，账号ID和加密密码，返回查询结果
