@@ -358,16 +358,14 @@ QJsonObject* RequestOperate::QueryProfiles(int identity,qlonglong UserID){
     }
     else {
         result->insert("Result","1");
-        do {
-            ReturnValue.insert("UserID",QueryResult.value(0).toLongLong());
-            ReturnValue.insert("Avatar",QueryResult.value(1).toString());
-            ReturnValue.insert("Name",QueryResult.value(2).toString());
-            ReturnValue.insert("Sex",QueryResult.value(3).toInt());
-            ReturnValue.insert("Age",QueryResult.value(4).toString());
-            ReturnValue.insert("SelfAddress",QueryResult.value(5).toString());
-            ReturnValue.insert("PhoneNumber",QueryResult.value(6).toString());
-            ReturnValue.insert("Signature",QueryResult.value(7).toString());
-        } while (QueryResult.next());
+        ReturnValue.insert("UserID",QueryResult.value(0).toLongLong());
+        ReturnValue.insert("Avatar",QueryResult.value(1).toString());
+        ReturnValue.insert("Name",QueryResult.value(2).toString());
+        ReturnValue.insert("Sex",QueryResult.value(3).toInt());
+        ReturnValue.insert("Age",QueryResult.value(4).toString());
+        ReturnValue.insert("SelfAddress",QueryResult.value(5).toString());
+        ReturnValue.insert("PhoneNumber",QueryResult.value(6).toString());
+        ReturnValue.insert("Signature",QueryResult.value(7).toString());
     }
     result->insert("ReturnValue",ReturnValue);
     return result;
@@ -514,9 +512,9 @@ QJsonObject* RequestOperate::QueryPrescriptionPay(qlonglong PatientID){
                 num++;
             }
         }while(QueryResult.next());
+        result->insert("Result",'1');
         ReturnValue.insert("ReportNum",num-1);
         ReturnValue.insert("Reports",Reports);
-        result->insert("Result",'1');
         result->insert("ReturnValue",ReturnValue);
 
     }
@@ -536,7 +534,7 @@ QJsonObject* RequestOperate::DPCommunication(int identity,qlonglong UserID){
     SelectColumn.append("DoctorID");
     SelectColumn.append("AppointmentTime");
 
-    QueryConditionColumn.append(identity?"DoctorID":"PatientID");
+    QueryConditionColumn.append(identi+"ID");
     QueryConditionValue.append(UserID);
 
     QueryAtt.insert("SelectColumn",SelectColumn);
@@ -631,7 +629,6 @@ QJsonObject* RequestOperate::EditProfile(int identity,qlonglong UserID,QString& 
             return result;
         }
     }
-    // TODO 这里直接更新全部字段
     UpdateAtt.insert("TableName",identi+"Profiles");
 
     UpdateConditionColumn.append(identi+"ID");
@@ -722,7 +719,7 @@ QJsonObject* RequestOperate::QueryRegistration(qlonglong DoctorID){
             aReg.insert("Name",Name);
             QDateTime AppointmentTime;
             AppointmentTime.fromSecsSinceEpoch(QueryResult.value("AppointmentTime").toInt());
-            aReg.insert("Appointment",AppointmentTime.toString());
+            aReg.insert("AppointmentTime",AppointmentTime.toString());
             Regs.insert(QString::number(num),aReg);
             num++;
             delete aPatient;
@@ -771,14 +768,134 @@ QJsonObject* RequestOperate::EditMedicalRecord(int AppointmentID, QString& Docto
     return result;
 }
 
-QJsonObject* RequestOperate::SendFiles(int SenderID, int ReceiverID, QString& FileName,int CurTime){
+//FilePath应该是/tmp/某人身份(doctor/patient)/某人id/接收者id/文件(注意处理重复问题_1,_2...）
+QJsonObject* RequestOperate::SaveFiles(int identity, qlonglong Sender, qlonglong Recipient,int SendTime, QString& FilePath){
+    QJsonObject InsertAtt;
+    InsertAtt.insert("TableName","CommunicationInfo");
+    QJsonArray InsertColumn;
+    QJsonArray InsertValue;
 
+    InsertColumn.append("Identity");
+    InsertColumn.append("Sender");
+    InsertColumn.append("Recipient");
+    InsertColumn.append("SendTime");
+    InsertColumn.append("IsFile");
+    InsertColumn.append("Content");
+
+    InsertValue.append(identity);
+    InsertValue.append(Sender);
+    InsertValue.append(Recipient);
+    InsertValue.append(SendTime);
+    InsertValue.append(1);
+    InsertValue.append(FilePath);
+
+    InsertAtt.insert("InsertColumn",InsertColumn);
+    InsertAtt.insert("InsertValue",InsertValue);
+
+    QString InsertResult=DataBaseInterface::ServerInsert(InsertAtt);
+    QJsonObject *result = new QJsonObject;
+    QJsonObject ReturnValue;
+    if(InsertResult == "1")
+        result->insert("Result","文件发送成功！");
+    else
+        result->insert("Result","发送失败，请重试！");
+    result->insert("ReturnValue",ReturnValue);
+    return result;
 }
 
-QJsonObject* RequestOperate::QueryFiles(int SenderID,int ReceiverID);
+QJsonObject* RequestOperate::QueryHistory(int identity, qlonglong Sender,qlonglong Recipient,int IsFile,QString FileName){
+    QString identi = identity? "Doctor":"Patient";
+    QJsonObject QueryAtt;
+    QueryAtt["TableName"] = "CommunicationInfo";
 
-QJsonObject* RequestOperate::SendMes(int SenderId,int ReceiverID,int CurTime,QString& message);
+    QJsonArray SelectColumn;
+    QJsonArray QueryConditionColumn;
+    QJsonArray QueryConditionValue;
 
-QJsonObject* RequestOperate::VoiceToWord(int SenderId,int ReceiverID,int CurTimem,QString& message);
+    SelectColumn.append("SendTime");
+    SelectColumn.append("FilePath");
 
+    QueryConditionColumn.append("Identity");
+    QueryConditionValue.append(identity);
+    QueryConditionColumn.append("Sender");
+    QueryConditionValue.append(Sender);
+    QueryConditionColumn.append("Recipient");
+    QueryConditionValue.append(Recipient);
+    QueryConditionColumn.append("IsFile");
+    QueryConditionValue.append(IsFile);
+    if(FileName!=" "){
+        QueryConditionColumn.append("Content");
+        QueryConditionValue.append(QString(TmpPath)+'/'+identi+
+                                   QString::number(Sender)+'/'+
+                                   QString::number(Recipient)+'/'+FileName);
+    }
+
+
+    QueryAtt.insert("SelectColumn",SelectColumn);
+    QueryAtt.insert("QueryConditionColumn",QueryConditionColumn);
+    QueryAtt.insert("QueryConditionValue",QueryConditionValue);
+
+    //结果按时间排序，没有则按ID排序
+    QSqlQuery QueryResult = DataBaseInterface::ServerQuery(QueryAtt);
+    QJsonObject *result=new QJsonObject;
+    QJsonObject ReturnValue;
+    if(!QueryResult.next()){
+        result->insert("Result","暂无文件！");
+        result->insert("ReturnValue",ReturnValue);
+        return result;
+    }
+    else{
+        QJsonObject FilePaths;
+        int num=0;
+        do {
+            QJsonObject aFile;
+            aFile.insert("SendTime",QueryResult.value(0).toInt());
+            aFile.insert("FilePath",QueryResult.value(1).toString());
+            FilePaths.insert(QString::number(num),aFile);
+            num++;
+        } while (QueryResult.next());
+        ReturnValue.insert("FileNum",num-1);
+        ReturnValue.insert("FilePaths",FilePaths);
+        result->insert("Result","1");
+        result->insert("ReturnValue",ReturnValue);
+        return result;
+    }
+}
+
+QJsonObject* RequestOperate::SaveMes(int identity, qlonglong Sender,qlonglong Recipient,int SendTime,QString& Content){
+    QJsonObject InsertAtt;
+    InsertAtt.insert("TableName","CommunicationInfo");
+    QJsonArray InsertColumn;
+    QJsonArray InsertValue;
+
+    InsertColumn.append("Identity");
+    InsertColumn.append("Sender");
+    InsertColumn.append("Recipient");
+    InsertColumn.append("SendTime");
+    InsertColumn.append("IsFile");
+    InsertColumn.append("Content");
+
+    InsertValue.append(identity);
+    InsertValue.append(Sender);
+    InsertValue.append(Recipient);
+    InsertValue.append(SendTime);
+    InsertValue.append(0);
+    InsertValue.append(Content);
+
+    InsertAtt.insert("InsertColumn",InsertColumn);
+    InsertAtt.insert("InsertValue",InsertValue);
+
+    QString InsertResult=DataBaseInterface::ServerInsert(InsertAtt);
+    QJsonObject *result = new QJsonObject;
+    QJsonObject ReturnValue;
+    if(InsertResult == "1")
+        result->insert("Result","发送成功！");
+    else
+        result->insert("Result","发送失败，请重试！");
+    result->insert("ReturnValue",ReturnValue);
+    return result;
+}
+
+QJsonObject* RequestOperate::VoiceToWord(int identity, qlonglong SenderId,qlonglong ReceiverID,int CurTime,QByteArray& message){
+}
 //QJsonObject* RequestOperate::LoadDialog(qlonglong PatientID,qlonglong DoctorID);
