@@ -5,6 +5,7 @@
 
 #include <QtSql/QSqlDatabase>
 #include <QSqlQuery>
+
 namespace DataBaseInterface {
 //接受表名TableName，选择字段SelectColumn，条件字段QueryConditionColumn，
 //条件字段值QueryConditionValue，返回查询得到的QSqlQuery

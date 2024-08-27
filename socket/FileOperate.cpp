@@ -12,3 +12,21 @@ bool FileOperate::isDirExist(QString FullPath){
         return result;
     }
 }
+
+QByteArray* FileOperate::PicToQByte(QString& PicPath){
+    QImage Pic;
+    Pic.load(PicPath);
+    QByteArray *imageArray=new QByteArray;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+    Pic.save(&buffer,"JPG");
+    imageArray->append(buffer.data());
+    return imageArray;
+}
+
+QString pwdHash(QString& password){
+    QByteArray passwd;
+    passwd.append(password);
+    QByteArray hash = QCryptographicHash::hash(passwd,QCryptographicHash::Sha3_384);
+    QString SHA = hash.toHex();
+}
