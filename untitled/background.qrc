@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pitcure/UI.png</file>
+        <file>pitcure/UI1.png</file>
+        <file>pitcure/UI2.png</file>
+        <file>pitcure/UI3.png</file>
+        <file>pitcure/UI4.png</file>
+        <file>pitcure/UI5.png</file>
+        <file>pitcure/preview-close.png</file>
+        <file>pitcure/eyes-open.png</file>
+        <file>pitcure/1.PNG</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>doctorcase</class>
+ <widget class="QWidget" name="doctorcase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>979</width>
+    <height>777</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#doctorcase{border-image: url(:/pitcure/UI4.jpg);}</string>
+  </property>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>60</y>
+     <width>241</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #60ff00; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 16pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>患者信息</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>420</y>
+     <width>231</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #60ff00; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 16pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>医生信息</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>881</width>
+     <height>290</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>患者姓名</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="name"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="sex"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>患者年龄</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="age"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>患者性别</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>联系方式</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="phone"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>家庭地址</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="address"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>500</y>
+     <width>881</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>患者预约时间</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000000; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>医生所属科室</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="room"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #298DFF; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 12pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>医生诊断</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="order"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>690</y>
+     <width>401</width>
+     <height>69</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="save">
+      <property name="styleSheet">
+       <string notr="true">QPushButton
+{
+	background-color: #473C8B; /*背景色*/ 
+	border-style: outset;
+	border-width: 2px;
+	border-radius:5px; /*边界圆滑*/
+	border-color: #8B7355;
+	font: bold 36px;
+	min-width:2em;
+	color:white; /*字体颜色*/
+	font-family:华文新魏;
+	padding: 5px;
+}
+ 
+QPushButton:hover
+{
+	background-color: rgb(0, 150, 0);
+}
+ 
+QPushButton:pressed
+{
+	background-color: #1E90FF; /*伪状态经过时背景色*/ 
+	border-style: inset;
+}
+QPushButton:!enabled{
+	background-color: rgb(100, 100, 100);
+	border-style: inset;
+}</string>
+      </property>
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="exit">
+      <property name="styleSheet">
+       <string notr="true">QPushButton
+{
+	background-color: #473C8B; /*背景色*/ 
+	border-style: outset;
+	border-width: 2px;
+	border-radius:5px; /*边界圆滑*/
+	border-color: #8B7355;
+	font: bold 36px;
+	min-width:2em;
+	color:white; /*字体颜色*/
+	font-family:华文新魏;
+	padding: 5px;
+}
+ 
+QPushButton:hover
+{
+	background-color: rgb(0, 150, 0);
+}
+ 
+QPushButton:pressed
+{
+	background-color: #1E90FF; /*伪状态经过时背景色*/ 
+	border-style: inset;
+}
+QPushButton:!enabled{
+	background-color: rgb(100, 100, 100);
+	border-style: inset;
+}</string>
+      </property>
+      <property name="text">
+       <string>退出</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>exit</sender>
+   <signal>clicked()</signal>
+   <receiver>doctorcase</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1055</x>
+     <y>880</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>598</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

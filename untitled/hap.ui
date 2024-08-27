@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HAP</class>
+ <widget class="QWidget" name="HAP">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>823</width>
+    <height>651</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>120</y>
+     <width>741</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000080; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>个体健康史</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="information1">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none;
+}
+
+QDialog {
+	background: #D6DBE9;
+}
+
+QLineEdit {
+	border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 3px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #A0A0A0; /* 文本颜色 */
+	selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+	selection-color: #F2F2F2; /* 选中文本的颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode=&quot;2&quot;] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000080; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>生活方式评估</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="information2">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none;
+}
+
+QDialog {
+	background: #D6DBE9;
+}
+
+QLineEdit {
+	border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 3px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #A0A0A0; /* 文本颜色 */
+	selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+	selection-color: #F2F2F2; /* 选中文本的颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode=&quot;2&quot;] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000080; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>身体测量</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="information3">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none;
+}
+
+QDialog {
+	background: #D6DBE9;
+}
+
+QLineEdit {
+	border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 3px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #A0A0A0; /* 文本颜色 */
+	selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+	selection-color: #F2F2F2; /* 选中文本的颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode=&quot;2&quot;] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000080; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>心理评估</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="information4">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none;
+}
+
+QDialog {
+	background: #D6DBE9;
+}
+
+QLineEdit {
+	border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 3px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #A0A0A0; /* 文本颜色 */
+	selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+	selection-color: #F2F2F2; /* 选中文本的颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode=&quot;2&quot;] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+
+QLabel {
+	border: 0px solid #298DFF; /* 无边框 */
+	border-radius: 3px; /* 边框圆角 */
+	color: #000080; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLabel:disabled { /* QLabel在禁用时的状态 */
+	border: 1px solid #B4B4B4;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLabel#PaddingLabel { /* 定义有Padding的QLabel，PaddingLabel为对象名，在QSS中为特定对象定制样式 */
+	padding-left: 10px; /* 文本距离左边界有10px */
+}
+
+QLabel#ImageLabel { /* 定义有背景图片的QLabel，ImageLabel为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/original&quot;); /* 使用border-image可以自适应QLabel大小 */
+
+}
+</string>
+      </property>
+      <property name="text">
+       <string>BMI</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="information5">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none;
+}
+
+QDialog {
+	background: #D6DBE9;
+}
+
+QLineEdit {
+	border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+	border-radius: 3px; /* 边框圆角 */
+	padding-left: 5px; /* 文本距离左边界有5px */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #A0A0A0; /* 文本颜色 */
+	selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+	selection-color: #F2F2F2; /* 选中文本的颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 14pt; /* 文本字体大小 */
+}
+
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+	color: #298DFF;
+	selection-background-color: #298DFF;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[echoMode=&quot;2&quot;] { /* QLineEdit有输入掩码时的状态 */
+	lineedit-password-character: 9679;
+	lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled { /* QLineEdit在禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+	background-color: #CDCDCD;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>530</y>
+     <width>521</width>
+     <height>82</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="putin">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QPushButton {
+	border: 1px solid #298DFF; /* QPushButton边框的宽度、样式和颜色 */
+	border-radius: 3px; /* 边框圆角 */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #298DFF; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 20pt; /* 文本字体大小 */
+}
+
+QPushButton:hover {	/* 鼠标悬浮在QPushButton上时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+
+QPushButton:checked { /* QPushButton可选中时的状态 */
+	border: 1px solid #FF5242;
+	background-color: #F2F2F2;
+	color: #FF5242;
+}
+
+QPushButton:pressed { /* 鼠标按压在QPushButton上时的状态 */
+	background-color: #257FE6;
+}
+
+QPushButton:checked:pressed { /* QPushButton处于可选中且鼠标按压在QPushButton上时的状态 */
+	background-color: #F2F2F2;
+}
+
+QPushButton:disabled { /* QPushButton禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QPushButton#ImageButton { /* 定义图片按钮，ImageButton为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/border_image&quot;); /* 使用border-image可以自适应按钮大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+
+QPushButton#ImageButton:hover {
+	border-image: url(&quot;:/Resource/border_image_hover&quot;);
+}
+
+QPushButton#ImageButton:pressed {
+	border-image: url(&quot;:/Resource/border_image&quot;);
+}
+
+QPushButton:menu-indicator { /* QPushButton带有菜单时的菜单指示器 */
+	subcontrol-origin：padding; /* 菜单指示器的起始点 */
+	subcontrol-position: center right; /* 菜单指示器的位置，处于水平靠右且垂直居中 */
+	image: url(:/Resource/down_arrow_normal); /* 菜单指示器的图像 */
+}
+
+QPushButton:menu-indicator:hover, QPushButton:menu-indicator:open { /* 鼠标悬浮在菜单指示器上和菜单指示器启用时的状态 */
+	position: relative;
+	top: 2px;
+	left: 2px;
+	image: url(:/Resource/down_arrow_hover);
+}
+
+QMenu { /* 简单定义菜单样式 */
+	border: 1px solid gray;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+}
+
+QMenu::item { /* 菜单项的样式 */
+	padding: 0px 0px 0px 40px;
+	border: 0px solid transparent;
+	background-color: transparent;
+	color: #298DFF;
+	min-width: 108px; /* 菜单项最小宽度，108+40+1*2=150，使得菜单宽度和QPushButton宽度保持一致 */
+	min-height: 30px; /* 菜单项的最小高度 */
+}
+
+QMenu::item:selected { /* 菜单项处于选中时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>提交</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="exit">
+      <property name="styleSheet">
+       <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QPushButton {
+	border: 1px solid #298DFF; /* QPushButton边框的宽度、样式和颜色 */
+	border-radius: 3px; /* 边框圆角 */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #298DFF; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 20pt; /* 文本字体大小 */
+}
+
+QPushButton:hover {	/* 鼠标悬浮在QPushButton上时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+
+QPushButton:checked { /* QPushButton可选中时的状态 */
+	border: 1px solid #FF5242;
+	background-color: #F2F2F2;
+	color: #FF5242;
+}
+
+QPushButton:pressed { /* 鼠标按压在QPushButton上时的状态 */
+	background-color: #257FE6;
+}
+
+QPushButton:checked:pressed { /* QPushButton处于可选中且鼠标按压在QPushButton上时的状态 */
+	background-color: #F2F2F2;
+}
+
+QPushButton:disabled { /* QPushButton禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QPushButton#ImageButton { /* 定义图片按钮，ImageButton为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/border_image&quot;); /* 使用border-image可以自适应按钮大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+
+QPushButton#ImageButton:hover {
+	border-image: url(&quot;:/Resource/border_image_hover&quot;);
+}
+
+QPushButton#ImageButton:pressed {
+	border-image: url(&quot;:/Resource/border_image&quot;);
+}
+
+QPushButton:menu-indicator { /* QPushButton带有菜单时的菜单指示器 */
+	subcontrol-origin：padding; /* 菜单指示器的起始点 */
+	subcontrol-position: center right; /* 菜单指示器的位置，处于水平靠右且垂直居中 */
+	image: url(:/Resource/down_arrow_normal); /* 菜单指示器的图像 */
+}
+
+QPushButton:menu-indicator:hover, QPushButton:menu-indicator:open { /* 鼠标悬浮在菜单指示器上和菜单指示器启用时的状态 */
+	position: relative;
+	top: 2px;
+	left: 2px;
+	image: url(:/Resource/down_arrow_hover);
+}
+
+QMenu { /* 简单定义菜单样式 */
+	border: 1px solid gray;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+}
+
+QMenu::item { /* 菜单项的样式 */
+	padding: 0px 0px 0px 40px;
+	border: 0px solid transparent;
+	background-color: transparent;
+	color: #298DFF;
+	min-width: 108px; /* 菜单项最小宽度，108+40+1*2=150，使得菜单宽度和QPushButton宽度保持一致 */
+	min-height: 30px; /* 菜单项的最小高度 */
+}
+
+QMenu::item:selected { /* 菜单项处于选中时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>退出</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>exit</sender>
+   <signal>clicked()</signal>
+   <receiver>HAP</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>570</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>325</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

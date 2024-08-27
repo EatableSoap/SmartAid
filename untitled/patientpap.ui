@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>patientPAP</class>
+ <widget class="QWidget" name="patientPAP">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1239</width>
+    <height>945</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="exit">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>850</y>
+     <width>211</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">* {
+	outline: none; /* 去掉有焦点时的虚线 */
+}
+
+QDialog {
+	background: #D6DBE9; /* 对话框背景色 */
+}
+
+QPushButton {
+	border: 1px solid #298DFF; /* QPushButton边框的宽度、样式和颜色 */
+	border-radius: 3px; /* 边框圆角 */
+	background-color: #F2F2F2; /* 背景颜色 */
+	color: #298DFF; /* 文本颜色 */
+	font-family: &quot;Microsoft YaHei&quot;; /* 文本字体族 */
+	font-size: 10pt; /* 文本字体大小 */
+}
+
+QPushButton:hover {	/* 鼠标悬浮在QPushButton上时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+
+QPushButton:checked { /* QPushButton可选中时的状态 */
+	border: 1px solid #FF5242;
+	background-color: #F2F2F2;
+	color: #FF5242;
+}
+
+QPushButton:pressed { /* 鼠标按压在QPushButton上时的状态 */
+	background-color: #257FE6;
+}
+
+QPushButton:checked:pressed { /* QPushButton处于可选中且鼠标按压在QPushButton上时的状态 */
+	background-color: #F2F2F2;
+}
+
+QPushButton:disabled { /* QPushButton禁用时的状态 */
+	border: 1px solid #CDCDCD;
+	background-color: #CDCDCD;
+	color: #B4B4B4;
+}
+
+QPushButton#ImageButton { /* 定义图片按钮，ImageButton为对象名，在QSS中为特定对象定制样式 */
+	border-image: url(&quot;:/Resource/border_image&quot;); /* 使用border-image可以自适应按钮大小 */
+	background-color: transparent; /* 不需要背景时可设为透明 */
+}
+
+QPushButton#ImageButton:hover {
+	border-image: url(&quot;:/Resource/border_image_hover&quot;);
+}
+
+QPushButton#ImageButton:pressed {
+	border-image: url(&quot;:/Resource/border_image&quot;);
+}
+
+QPushButton:menu-indicator { /* QPushButton带有菜单时的菜单指示器 */
+	subcontrol-origin：padding; /* 菜单指示器的起始点 */
+	subcontrol-position: center right; /* 菜单指示器的位置，处于水平靠右且垂直居中 */
+	image: url(:/Resource/down_arrow_normal); /* 菜单指示器的图像 */
+}
+
+QPushButton:menu-indicator:hover, QPushButton:menu-indicator:open { /* 鼠标悬浮在菜单指示器上和菜单指示器启用时的状态 */
+	position: relative;
+	top: 2px;
+	left: 2px;
+	image: url(:/Resource/down_arrow_hover);
+}
+
+QMenu { /* 简单定义菜单样式 */
+	border: 1px solid gray;
+	border-radius: 3px;
+	background-color: #F2F2F2;
+}
+
+QMenu::item { /* 菜单项的样式 */
+	padding: 0px 0px 0px 40px;
+	border: 0px solid transparent;
+	background-color: transparent;
+	color: #298DFF;
+	min-width: 108px; /* 菜单项最小宽度，108+40+1*2=150，使得菜单宽度和QPushButton宽度保持一致 */
+	min-height: 30px; /* 菜单项的最小高度 */
+}
+
+QMenu::item:selected { /* 菜单项处于选中时的状态 */
+	background-color: #298DFF;
+	color: #F2F2F2;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>840</x>
+     <y>100</y>
+     <width>234</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>缴费金额</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="money"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>100</y>
+     <width>274</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>日期</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QDateEdit" name="dateEdit"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>190</y>
+     <width>129</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>医嘱</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="notice">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>230</y>
+     <width>1031</width>
+     <height>251</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>480</y>
+     <width>129</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>处方</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="order">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>520</y>
+     <width>1031</width>
+     <height>291</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>100</y>
+     <width>331</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>预约号</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="number"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>exit</sender>
+   <signal>clicked()</signal>
+   <receiver>patientPAP</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>625</x>
+     <y>890</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>619</x>
+     <y>472</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
