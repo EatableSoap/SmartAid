@@ -822,7 +822,7 @@ QJsonObject* RequestOperate::QueryHistory(int identity, qlonglong Sender,qlonglo
     QJsonArray QueryConditionValue;
 
     SelectColumn.append("SendTime");
-    SelectColumn.append("FilePath");
+    SelectColumn.append("Content");
 
     QueryConditionColumn.append("Identity");
     QueryConditionValue.append(identity);
