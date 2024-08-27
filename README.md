@@ -1,2 +1,1 @@
-# SmartAid
-A project of BIT's students
+Nothing to introduce.
