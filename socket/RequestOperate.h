@@ -13,7 +13,7 @@ namespace RequestOperate {
 //身份为1表示是医生,接受身份，账号ID和加密密码，返回查询结果
 QJsonObject* UserLogin(int identity, qlonglong UserID, QString& RSA);
 //身份为1表示是医生,SelfAddress表示家庭住址/所属科室
-QJsonObject* UserRegister(int identity,qlonglong UserID,QString& password,
+QJsonObject* UserRegister(int identity,qlonglong UserID,QByteArray& AvatarPic,QString& password,
                     QString& UserName,int age,QString& sex,QString& PhoneNumber,QString& selfaddress,
                     QString& signature);
 //从本地选择一张图片(转成二进制流)，然后上传到服务器
@@ -23,7 +23,7 @@ QJsonObject* RegistrationInfo(QString& Apartment);
 //接受医生ID，返回当前空闲时间
 QVector<int>* QueryDoctorFree(qlonglong DoctorID);
 //接受预约ID，患者ID，医生ID，预约时间戳，预约时长，无返回
-QJsonObject* Registration(int AppointmentID, qlonglong PatientID,qlonglong DoctorID,int SendTime,int duration);
+QJsonObject* Registration(qlonglong PatientID,qlonglong DoctorID,int SendTime,int duration);
 //接受身份和账号ID，返回个人信息
 QJsonObject* QueryProfiles(int identity, qlonglong UserID);
 //接受患者ID，返回患者基本信息，预约时间，就诊科室，医生ID，医生诊断、处方和医嘱
@@ -34,8 +34,8 @@ QJsonObject* QueryPrescriptionPay(qlonglong PatientID);
 QJsonObject* DPCommunication(int identity,qlonglong UserID);
 //身份为1表示是医生,selfaddress表示家庭住址/所属科室
 QJsonObject* EditProfile(int identity,qlonglong UserID,QString& OldPassword,
-                         QString& NewPassword,QByteArray& Avatar, QString& sex,
-                         int age, QString& SelfAddress,QString& PhoneNumber,
+                         QString& NewPassword,QByteArray& Avatar, QString& UserName,
+                         QString& sex,int age, QString& SelfAddress,QString& PhoneNumber,
                          QString& signature);
 //接受医生ID，返回该医生预约队列
 QJsonObject* QueryRegistration(qlonglong DoctorID);
@@ -45,7 +45,7 @@ QJsonObject* EditMedicalRecord(int AppointmentID, QString& DoctorDiagnosis,
 //接受发送者身份，发送者ID，接受者ID和传输文件名，当前时间戳
 QJsonObject* SaveFiles(int identity, qlonglong Sender, qlonglong Recipient, int SendTime, QString& FilePath);
 //接受发送者的身份，发送者ID和接受者ID，返回文件名和本地url地址
-QJsonObject* QueryHistory(int identity,qlonglong Sender,qlonglong Recipient,int IsFile,QString FileName=" ");
+QJsonObject* QueryHistory(int identity,qlonglong Sender,qlonglong Recipient,int IsFile,int SenfTime = 0,QString FileName=" ");
 //接受发送者身份,发送者ID，接受者ID和发送时间，数据库插入聊天信息
 QJsonObject* SaveMes(int identity, qlonglong Sender,qlonglong Recipient,int SendTime,QString& Content);
 //接受发送者，接受者和发送时间，数据库插入语音信息

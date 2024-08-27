@@ -1,9 +1,11 @@
-#include "Server.h"
-//命令头转数字
+#include "server.h"
+#include "ui_server.h"
+
 QMap<QString,int>* HeadToInt = FileOperate::CommandHeadToInt();
+QVector<int> HasFile = {1,2,5,7,9,12,13};
 
 //解析命令头，调用对应函数
-QJsonObject* AnalysisTool::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
+QJsonObject* AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
     QString CommandHead = CommandPack["CMD"].toString();
     QJsonObject CommandArgs = CommandPack["Args"].toObject();
     switch (HeadToInt->value(CommandHead)) {
@@ -156,4 +158,44 @@ QJsonObject* AnalysisTool::AnalyzeCommand(QJsonObject& CommandPack,QByteArray Fi
     }
 }
 
-QTcpServer* server = new QTcpServer(this);
+Server::Server(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Server)
+{
+    ui->setupUi(this);
+}
+
+Server::~Server()
+{
+    delete ui;
+}
+
+void Server::StartServer(){
+    QTcpServer *server = new QTcpServer(this);
+
+    if(!server->listen(QHostAddress::Any,8888)){
+        qDebug()<<"Server could not start. Error:"<<server->errorString();
+    }
+    else{
+        qDebug()<<"Server listening on port "<<8888;
+    }
+
+    connect(server,&QTcpServer::newConnection,[=](){
+        //接收到客户端连接，产生对应嵌套字
+        QTcpSocket* clientSocket = server->nextPendingConnection();
+        connect(clientSocket,&QTcpSocket::readyRead,[=]{
+            //客户端发送指令包
+            QByteArray CommandByteArray = clientSocket->readAll();
+            QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
+            int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
+            if(!HasFile.contains(mayFile)){
+            QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
+            QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
+            clientSocket->write(ReturnByteArray);
+            }
+            else{
+
+            }
+        });
+    });
+}

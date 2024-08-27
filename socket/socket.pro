@@ -10,11 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     Client.cpp \
+    DataBaseInterface.cpp \
     FileOperate.cpp \
     MyQtJson.cpp \
     RequestOperate.cpp \
-    Server.cpp \
-    main.cpp
+    main.cpp \
+    server.cpp
 
 HEADERS += \
     Client.h \
@@ -22,9 +23,10 @@ HEADERS += \
     FileOperate.h \
     MyQtJson.h \
     RequestOperate.h \
-    Server.h
+    server.h
 
-FORMS +=
+FORMS += \
+    server.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
