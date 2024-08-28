@@ -11,18 +11,22 @@ public:
         socket->connectToHost(serverAddress, serverPort);
     }
 
+    QString SavePath = "./tmp/";
+    QJsonObject RecvJson;
+
     void sendCommand(const QJsonObject& command, const QByteArray& fileData = QByteArray(),const QString& FileName = "") {
         QByteArray commandByteArray = QJsonDocument(command).toJson();
         socket->write(commandByteArray);
         socket->waitForBytesWritten();
-        if (!fileData.isEmpty()) {
+        //表示如果有文件，则从本地传一个数据流给服务端
+        if (!fileData.isEmpty()&&!FileName.size()) {
             socket->write(QString("%1&%2").arg(FileName).arg(fileData.size()).toUtf8());
             socket->waitForBytesWritten();
             socket->write(fileData);
             socket->waitForBytesWritten();
         }
     }
-
+    //从服务端地址下载文件
     void downloadFile(const QString& filePath) {
         QJsonObject command;
         command["CMD"] = "Down";
@@ -37,13 +41,13 @@ private slots:
 
     void onReadyRead() {
         QByteArray data = socket->readAll();
-        if (data.contains('&')) {
+        if (QString(data).contains('&')) {
             // Handling file info header
             QStringList fileInfo = QString(data).split("&");
             QString fileName = fileInfo[0];
             int fileSize = fileInfo[1].toInt();
 
-            QFile file(fileName);
+            QFile file(SavePath+fileName);
             if (file.open(QIODevice::WriteOnly)) {
                 int receivedSize = 0;
                 while (receivedSize < fileSize) {
@@ -58,12 +62,9 @@ private slots:
             // Handle JSON response
             QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
             QJsonObject jsonObj = jsonDoc.object();
+            RecvJson = jsonObj;
             qDebug() << "Received response:" << jsonObj;
         }
-    }
-
-    void onError(QTcpSocket::SocketError socketError) {
-        qDebug() << "Socket error:" << socketError;
     }
 
 private:

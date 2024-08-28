@@ -131,7 +131,7 @@ private slots:
             QString FileName = CommandArgs.value("FileName").toString();
             QByteArray& fileBytes = FileByte;
             FileOperate::isDirExist(FilePath);
-            FilePath += FileName.insert(FileName.lastIndexOf("."),'_' + QString::number(SendTime));
+            FilePath += QString::number(SendTime) + FileName;
             //此处应当将文件的二进制流传入QByteArray
             //构造文件
             QFile upFiles(FilePath);
