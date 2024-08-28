@@ -597,7 +597,8 @@ QJsonObject* RequestOperate::DPCommunication(int identity,qlonglong UserID){
             //获取历史记录的姓名
             QJsonObject* user=QueryProfiles(!identity,QueryResult->value(!identity).toLongLong());
             QString Name = user->value("ReturnValue").toObject().value("Name").toString();
-
+            QString Avatar = user->value("ReturnValue").toObject().value("Avatar").toString();
+            aUser.insert("Avatar",Avatar);
             aUser.insert("Name",Name);
             delete user;
             Users.insert(QString::number(num),aUser);
