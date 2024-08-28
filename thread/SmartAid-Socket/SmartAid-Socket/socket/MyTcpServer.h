@@ -35,27 +35,27 @@ class MyTcpServer : public QTcpServer
    protected:
 	void incomingConnection(qintptr socketDescriptor);	// 覆盖已获取多线程
    private:
-	QMap<int, myTcpSocket *> *tcpClient;
+	QMap<int, QTcpSocket *> *tcpClient;
 };
 
 void MyTcpServer::incomingConnection(qintptr socketDescriptor)
 {
-	myTcpSocket *tcpTemp = new myTcpSocket(socketDescriptor);
-	QThread		*thread = new QThread(tcpTemp);	 // 防止内存泄漏
+	QTcpSocket *tcpTemp = new QTcpSocket(socketDescriptor);
+	QThread	   *thread = new QThread(tcpTemp);	// 防止内存泄漏
 	connect(tcpTemp,
-			&myTcpSocket::readData,
+			&QTcpSocket::readData,
 			this,
 			&MyTcpServer::readDataSlot);  // 接受到数据
 	connect(tcpTemp,
-			&myTcpSocket::sockDisConnect,
+			&QTcpSocket::sockDisConnect,
 			this,
 			&MyTcpServer::sockDisConnectSlot);	// 断开连接并释放断开的Tcpsocket
 	connect(this,
 			&MyTcpServer::sentData,
 			tcpTemp,
-			&myTcpSocket::sentData);  // 发送数据
+			&QTcpSocket::sentData);	 // 发送数据
 	connect(tcpTemp,
-			&myTcpSocket::disconnected,
+			&QTcpSocket::disconnected,
 			thread,
 			&QThread::quit);		// 断开连接时线程退出
 	tcpTemp->moveToThread(thread);	// 把tcp类移动到新的线程
@@ -79,7 +79,7 @@ void MyTcpServer::sockDisConnectSlot(int handle, QString ip, quint16 prot)
 	qDebug() << "MyTcpServer::sockDisConnectSlot thread is:"
 			 << QThread::currentThreadId();
 
-	myTcpSocket *tcp = tcpClient->value(handle);
+	QTcpSocket *tcp = tcpClient->value(handle);
 	tcpClient->remove(handle);	// 连接管理中移除断开连接的socket
 	delete tcp;					// 释放断开连接的资源
 	emit sockDisConnect(handle, ip, prot);
