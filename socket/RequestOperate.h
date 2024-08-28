@@ -14,8 +14,8 @@ namespace RequestOperate {
 QJsonObject* UserLogin(int identity, qlonglong UserID, QString& RSA);
 //身份为1表示是医生,SelfAddress表示家庭住址/所属科室
 QJsonObject* UserRegister(int identity,qlonglong UserID,QByteArray& AvatarPic,QString& password,
-                    QString& UserName,int age,QString& sex,QString& PhoneNumber,QString& selfaddress,
-                    QString& signature);
+                          QString& UserName,int age,QString& sex,QString& PhoneNumber,QString& selfaddress,
+                          QString& signature);
 //从本地选择一张图片(转成二进制流)，然后上传到服务器
 QJsonObject* UploadAvatar(int identity, qlonglong UserID, QByteArray& AvatarPic);
 //接受科室，对应医生ID
@@ -31,6 +31,7 @@ QJsonObject* QueryMedicalRecord(qlonglong PatientID);
 //接受患者ID，返回患者历史处方和缴费信息
 QJsonObject* QueryPrescriptionPay(qlonglong PatientID);
 //接受账号ID，返回患者头像，患者姓名/医生头像，医生姓名，预约时间
+//只传文件路径，由客户端向服务器不断发送请求获取图像
 QJsonObject* DPCommunication(int identity,qlonglong UserID);
 //身份为1表示是医生,selfaddress表示家庭住址/所属科室
 QJsonObject* EditProfile(int identity,qlonglong UserID,QString& OldPassword,
