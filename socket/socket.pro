@@ -13,7 +13,6 @@ SOURCES += \
     FileOperate.cpp \
     MyQtJson.cpp \
     RequestOperate.cpp \
-    client.cpp \
     main.cpp \
     server.cpp
 
@@ -22,11 +21,9 @@ HEADERS += \
     FileOperate.h \
     MyQtJson.h \
     RequestOperate.h \
-    client.h \
     server.h
 
 FORMS += \
-    client.ui \
     server.ui
 
 # Default rules for deployment.
