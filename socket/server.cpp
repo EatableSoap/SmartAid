@@ -2,7 +2,7 @@
 #include "ui_server.h"
 
 QMap<QString,int>* HeadToInt = FileOperate::CommandHeadToInt();
-QVector<int> HasFile = {1,2,5,9,12,13};
+QVector<int> HasFile = {1,2,5,9,12};
 
 //解析命令头，调用对应函数
 QJsonObject* AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
@@ -200,14 +200,41 @@ void Server::StartServer(){
                 QByteArray CommandByteArray = clientSocket->readAll();
                 QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
                 int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
+                if(mayFile == 99)
+                {
+                    QString FilePath = CommandPack->value("Args").toObject().value("FilePath").toString();
+                    QByteArray* fileData = RequestOperate::DownloadFiles(FilePath);
+                    QString SendFileName = FilePath.mid(FilePath.lastIndexOf("/"));
+                    int filesize = fileData->size();
+                    QString fileInfo = QString("%1&%2").arg(SendFileName).arg(filesize);
+                    clientSocket->write(fileInfo.toUtf8());
+                    clientSocket->waitForBytesWritten();
+                    clientSocket->write(*fileData);
+                    clientSocket->waitForBytesWritten();
+                    clientSocket->disconnectFromHost();
+                }
                 if(!HasFile.contains(mayFile)){
                     QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
                     QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
                     clientSocket->write(ReturnByteArray);
-                    clientSocket->flush();
+                    clientSocket->waitForBytesWritten();
+                    clientSocket->disconnectFromHost();
                 }
-                else if(mayFile == 5||mayFile == 12||mayFile == 13){
-
+                //这部分是指接收到要发送文件的操作
+                else if(mayFile == 5){
+                    {
+                        QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
+                        QString picPath = ReturnPack->value("ReturnValue").toObject().value("Avatar").toString();
+                        QByteArray* avatarData = RequestOperate::DownloadFiles(picPath);
+                        QString SendFileName = "Avatar.jpg";
+                        int filesize = avatarData->size();
+                        QString fileInfo = QString("%1&%2").arg(SendFileName).arg(filesize);
+                        clientSocket->write(fileInfo.toUtf8());
+                        clientSocket->waitForBytesWritten();
+                        clientSocket->write(*avatarData);
+                        clientSocket->waitForBytesWritten();
+                        clientSocket->disconnectFromHost();
+                    }
                 }
                 else
                     fileState=1;
@@ -233,8 +260,9 @@ void Server::StartServer(){
                     QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack,qbuff);
                     QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
                     clientSocket->write(ReturnByteArray);
-                    clientSocket->flush();
+                    clientSocket->waitForBytesWritten();
                     fileState = 0;
+                    clientSocket->disconnectFromHost();
                 }
             }
                 break;

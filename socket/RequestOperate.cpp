@@ -847,6 +847,14 @@ QJsonObject* RequestOperate::SaveFiles(int identity, qlonglong Sender, qlonglong
     return result;
 }
 
+QByteArray* RequestOperate::DownloadFiles(QString& FilePath){
+    QFile file(FilePath);
+    file.open(QIODevice::ReadOnly);
+    QByteArray* fileData = new QByteArray;
+    *fileData = file.readAll();
+    return fileData;
+}
+
 QJsonObject* RequestOperate::QueryHistory(int identity, qlonglong Sender,qlonglong Recipient,int IsFile,int SendTime,QString FileName){
     QString identi = identity? "Doctor":"Patient";
     QJsonObject QueryAtt;

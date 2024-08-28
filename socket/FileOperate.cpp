@@ -47,5 +47,6 @@ QMap<QString,int>* FileOperate::CommandHeadToInt(){
     map->insert(QString("D00001"),11);
     map->insert(QString("E00000"),12);
     map->insert(QString("E00001"),13);
+    map->insert(QString("Down"),99);
     return map;
 }

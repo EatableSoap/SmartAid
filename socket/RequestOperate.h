@@ -44,6 +44,8 @@ QJsonObject* EditMedicalRecord(int AppointmentID, QString& DoctorDiagnosis,
                                QString& Perscription, QString& Orders);
 //接受发送者身份，发送者ID，接受者ID和传输文件名，当前时间戳
 QJsonObject* SaveFiles(int identity, qlonglong Sender, qlonglong Recipient, int SendTime, QString& FilePath);
+//接收文件路径，返回文件二进制流
+QByteArray* DownloadFiles(QString& FilePath);
 //接受发送者的身份，发送者ID和接受者ID，返回文件名和本地url地址
 QJsonObject* QueryHistory(int identity,qlonglong Sender,qlonglong Recipient,int IsFile,int SenfTime = 0,QString FileName=" ");
 //接受发送者身份,发送者ID，接受者ID和发送时间，数据库插入聊天信息
