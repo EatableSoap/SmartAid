@@ -594,13 +594,11 @@ QJsonObject* RequestOperate::DPCommunication(int identity,qlonglong UserID){
         int num=0;
         do {
             QJsonObject aUser;
-            //获取历史记录的姓名和头像
+            //获取历史记录的姓名
             QJsonObject* user=QueryProfiles(!identity,QueryResult->value(!identity).toLongLong());
             QString Name = user->value("ReturnValue").toObject().value("Name").toString();
-            QString Avatar = user->value("ReturnValue").toObject().value("Avatar").toString();
-            //获取缓存图片地址
+
             aUser.insert("Name",Name);
-            aUser.insert("Avatar",Avatar);
             delete user;
             Users.insert(QString::number(num),aUser);
             num++;

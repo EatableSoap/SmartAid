@@ -2,7 +2,7 @@
 #include "ui_server.h"
 
 QMap<QString,int>* HeadToInt = FileOperate::CommandHeadToInt();
-QVector<int> HasFile = {1,2,5,7,9,12,13};
+QVector<int> HasFile = {1,2,5,9,12,13};
 
 //解析命令头，调用对应函数
 QJsonObject* AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
@@ -21,6 +21,7 @@ QJsonObject* AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
     {
         int identity = CommandArgs.value("Identity").toInt();
         qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        QByteArray& AvatarPic = FileByte;
         QString password = CommandArgs.value("Password").toString();
         QString UserName = CommandArgs.value("UserName").toString();
         QString sex = CommandArgs.value("Sex").toString();
@@ -28,7 +29,7 @@ QJsonObject* AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileByte){
         QString SelfAddress = CommandArgs.value("SelfAddress").toString();
         QString PhoneNumber = CommandArgs.value("PhoneNumber").toString();
         QString signature = CommandArgs.value("Signature").toString();
-        return RequestOperate::UserRegister(identity,UserID,password,UserName,
+        return RequestOperate::UserRegister(identity,UserID,AvatarPic,password,UserName,
                                             age,sex,PhoneNumber,SelfAddress,signature);
     }
         break;
@@ -180,21 +181,63 @@ void Server::StartServer(){
         qDebug()<<"Server listening on port "<<8888;
     }
 
-    connect(server,&QTcpServer::newConnection,[=](){
+    int fileState = 0;
+    int recvSize = 0;
+    QByteArray qbuff;
+
+    QJsonObject* CommandPack;
+
+    connect(server,&QTcpServer::newConnection,[&](){
         //接收到客户端连接，产生对应嵌套字
         QTcpSocket* clientSocket = server->nextPendingConnection();
-        connect(clientSocket,&QTcpSocket::readyRead,[=]{
-            //客户端发送指令包
-            QByteArray CommandByteArray = clientSocket->readAll();
-            QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
-            int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
-            if(!HasFile.contains(mayFile)){
-            QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
-            QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
-            clientSocket->write(ReturnByteArray);
-            }
-            else{
+        connect(clientSocket,&QTcpSocket::readyRead,[&](){
+            QString filename;
+            int fileSize = 0;
+            switch (fileState)
+            {
+            case 0:{
+                //客户端发送指令包
+                QByteArray CommandByteArray = clientSocket->readAll();
+                QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
+                int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
+                if(!HasFile.contains(mayFile)){
+                    QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
+                    QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
+                    clientSocket->write(ReturnByteArray);
+                    clientSocket->flush();
+                }
+                else if(mayFile == 5||mayFile == 12||mayFile == 13){
 
+                }
+                else
+                    fileState=1;
+            }
+                break;
+            case 1:{
+                //读取文件头%arg1&%arg2
+                QString str = QString(clientSocket->readAll());
+                QStringList strlist = str.split("&");
+                filename = strlist.at(0);
+                fileSize = strlist.at(1).toInt();
+                qbuff.clear();
+                recvSize = 0;
+                fileState = 2;
+            }
+                break;
+            case 2:{
+                qbuff.append(clientSocket->readAll());
+                recvSize += qbuff.size();
+                //tcp自动分包
+                if(recvSize>=fileSize){
+                    //判断是接受文件还是发送文件
+                    QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack,qbuff);
+                    QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
+                    clientSocket->write(ReturnByteArray);
+                    clientSocket->flush();
+                    fileState = 0;
+                }
+            }
+                break;
             }
         });
     });
