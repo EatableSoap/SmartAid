@@ -189,82 +189,80 @@ void Server::StartServer(){
 
     connect(server,&QTcpServer::newConnection,[&](){
         //接收到客户端连接，产生对应嵌套字
-        while(1){
         QTcpSocket* clientSocket = server->nextPendingConnection();
-            connect(clientSocket,&QTcpSocket::readyRead,[&](){
-                QString filename;
-                int fileSize = 0;
-                switch (fileState)
+        connect(clientSocket,&QTcpSocket::readyRead,[&](){
+            QString filename;
+            int fileSize = 0;
+            switch (fileState)
+            {
+            case 0:{
+                //客户端发送指令包
+                QByteArray CommandByteArray = clientSocket->readAll();
+                QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
+                int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
+                if(mayFile == 99)
                 {
-                case 0:{
-                    //客户端发送指令包
-                    QByteArray CommandByteArray = clientSocket->readAll();
-                    QJsonObject* CommandPack = MyQtJson::AnalysisByteArray(CommandByteArray);
-                    int mayFile = HeadToInt->value(CommandPack->value("CMD").toString());
-                    if(mayFile == 99)
+                    QString FilePath = CommandPack->value("Args").toObject().value("FilePath").toString();
+                    QByteArray* fileData = RequestOperate::DownloadFiles(FilePath);
+                    QString SendFileName = FilePath.mid(FilePath.lastIndexOf("/"));
+                    int filesize = fileData->size();
+                    QString fileInfo = QString("%1&%2").arg(SendFileName).arg(filesize);
+                    clientSocket->write(fileInfo.toUtf8());
+                    clientSocket->waitForBytesWritten();
+                    clientSocket->write(*fileData);
+                    clientSocket->waitForBytesWritten();
+                }
+                if(!HasFile.contains(mayFile)){
+                    QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
+                    QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
+                    clientSocket->write(ReturnByteArray);
+                    clientSocket->waitForBytesWritten();
+                }
+                //这部分是指接收到要发送文件的操作
+                else if(mayFile == 5){
                     {
-                        QString FilePath = CommandPack->value("Args").toObject().value("FilePath").toString();
-                        QByteArray* fileData = RequestOperate::DownloadFiles(FilePath);
-                        QString SendFileName = FilePath.mid(FilePath.lastIndexOf("/"));
-                        int filesize = fileData->size();
+                        QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
+                        QString picPath = ReturnPack->value("ReturnValue").toObject().value("Avatar").toString();
+                        QByteArray* avatarData = RequestOperate::DownloadFiles(picPath);
+                        QString SendFileName = "Avatar.jpg";
+                        int filesize = avatarData->size();
                         QString fileInfo = QString("%1&%2").arg(SendFileName).arg(filesize);
                         clientSocket->write(fileInfo.toUtf8());
                         clientSocket->waitForBytesWritten();
-                        clientSocket->write(*fileData);
+                        clientSocket->write(*avatarData);
                         clientSocket->waitForBytesWritten();
                     }
-                    if(!HasFile.contains(mayFile)){
-                        QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
-                        QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
-                        clientSocket->write(ReturnByteArray);
-                        clientSocket->waitForBytesWritten();
-                    }
-                    //这部分是指接收到要发送文件的操作
-                    else if(mayFile == 5){
-                        {
-                            QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack);
-                            QString picPath = ReturnPack->value("ReturnValue").toObject().value("Avatar").toString();
-                            QByteArray* avatarData = RequestOperate::DownloadFiles(picPath);
-                            QString SendFileName = "Avatar.jpg";
-                            int filesize = avatarData->size();
-                            QString fileInfo = QString("%1&%2").arg(SendFileName).arg(filesize);
-                            clientSocket->write(fileInfo.toUtf8());
-                            clientSocket->waitForBytesWritten();
-                            clientSocket->write(*avatarData);
-                            clientSocket->waitForBytesWritten();
-                        }
-                    }
-                    else
-                        fileState=1;
                 }
-                    break;
-                case 1:{
-                    //读取文件头%arg1&%arg2
-                    QString str = QString(clientSocket->readAll());
-                    QStringList strlist = str.split("&");
-                    filename = strlist.at(0);
-                    fileSize = strlist.at(1).toInt();
-                    qbuff.clear();
-                    recvSize = 0;
-                    fileState = 2;
+                else
+                    fileState=1;
+            }
+                break;
+            case 1:{
+                //读取文件头%arg1&%arg2
+                QString str = QString(clientSocket->readAll());
+                QStringList strlist = str.split("&");
+                filename = strlist.at(0);
+                fileSize = strlist.at(1).toInt();
+                qbuff.clear();
+                recvSize = 0;
+                fileState = 2;
+            }
+                break;
+            case 2:{
+                qbuff.append(clientSocket->readAll());
+                recvSize += qbuff.size();
+                //tcp自动分包
+                if(recvSize>=fileSize){
+                    //判断是接受文件还是发送文件
+                    QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack,qbuff);
+                    QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
+                    clientSocket->write(ReturnByteArray);
+                    clientSocket->waitForBytesWritten();
+                    fileState = 0;
                 }
-                    break;
-                case 2:{
-                    qbuff.append(clientSocket->readAll());
-                    recvSize += qbuff.size();
-                    //tcp自动分包
-                    if(recvSize>=fileSize){
-                        //判断是接受文件还是发送文件
-                        QJsonObject* ReturnPack = AnalyzeCommand(*CommandPack,qbuff);
-                        QByteArray ReturnByteArray = QJsonDocument(*ReturnPack).toJson();
-                        clientSocket->write(ReturnByteArray);
-                        clientSocket->waitForBytesWritten();
-                        fileState = 0;
-                    }
-                }
-                    break;
-                }
-            });
-        }
+            }
+                break;
+            }
+        });
     });
 }

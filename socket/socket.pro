@@ -14,14 +14,18 @@ SOURCES += \
     MyQtJson.cpp \
     RequestOperate.cpp \
     main.cpp \
-    server.cpp
+    server.cpp \
+    socketClient.cpp \
+    socketServer.cpp
 
 HEADERS += \
     DataBaseInterface.h \
     FileOperate.h \
     MyQtJson.h \
     RequestOperate.h \
-    server.h
+    server.h \
+    socketClient.h \
+    socketServer.h
 
 FORMS += \
     server.ui
