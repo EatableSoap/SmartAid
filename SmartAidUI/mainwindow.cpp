@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *action = new QAction(this);
     action->setIcon(QIcon(":/preview-close.png"));
     //初始化变量
-    client = new socketClient("10.171.147.10",1234);
+    client = new socketClient("10.171.147.20",1234);
     doctorWidget = new Doctor;
     patientWidget = new patient;
     enrollWidget = new Enroll;
@@ -96,26 +96,22 @@ void MainWindow::on_LoginBtn_clicked()
 
         userlogin.insert("Args",Args);
 
-        QMessageBox msgBox;
-        msgBox.setParent(QApplication::activeWindow());
-        msgBox.adjustSize();
-        msgBox.move(QApplication::activeWindow()->rect().center() - msgBox.rect().center());
-
+        //发送数据包
+        client->sendCommand(userlogin);
         //获取客户端返回结果
+        client->shareValue->sharedsocket->waitForReadyRead(3000);
         QJsonObject ReturnPack = client->RecvJson;
-        msgBox.setText(ReturnPack.value("Result").toString());
+
+        QMessageBox::information(NULL,"提示",ReturnPack.value("Result").toString(),QMessageBox::Yes);
 
         if(ReturnPack.value("Result").toString().contains("成功")){
-            msgBox.exec();
             this->hide();
             if(client->shareValue->identity)
                 doctorWidget->show();
             else
                 patientWidget->show();
         }
-        else{
-            msgBox.exec();
-        }
+        client->shareValue->sharedsocket->disconnectFromHost();
     }
 }
 

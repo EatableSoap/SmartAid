@@ -14,7 +14,7 @@ socketClient::socketClient(const QString& serverAddress, int serverPort)
 
 void socketClient::tryconnect(){
     shareValue->sharedsocket->connectToHost(serverAddress,serverPort);
-    if(shareValue->sharedsocket->waitForConnected()){
+    if(shareValue->sharedsocket->waitForConnected(3000)){
         qDebug()<<"成功连接至服务器！";
     }
     else{

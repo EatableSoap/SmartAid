@@ -12,12 +12,12 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,26 +26,6 @@ class Ui_Enroll
 {
 public:
     QLabel *label_photo;
-    QWidget *formLayoutWidget;
-    QFormLayout *formLayout;
-    QLabel *label;
-    QLineEdit *name;
-    QLabel *label_2;
-    QLineEdit *password1;
-    QLabel *label_9;
-    QLineEdit *password2;
-    QLabel *label_6;
-    QLineEdit *phone;
-    QLabel *label_8;
-    QLineEdit *Name;
-    QLabel *label_5;
-    QLineEdit *sex;
-    QLabel *label_7;
-    QLineEdit *address;
-    QLabel *label_4;
-    QLineEdit *age;
-    QLabel *label_11;
-    QLineEdit *signature;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *label_3;
@@ -57,6 +37,22 @@ public:
     QPushButton *exit;
     QLabel *label_12;
     QPushButton *choose;
+    QTextEdit *signature;
+    QLabel *label_2;
+    QLineEdit *password1;
+    QLabel *label_9;
+    QLineEdit *password2;
+    QLabel *label_6;
+    QLineEdit *phone;
+    QLabel *label_8;
+    QLineEdit *Name;
+    QLabel *label_5;
+    QLineEdit *sex;
+    QLabel *selfinfo;
+    QLineEdit *address;
+    QLabel *label_4;
+    QLineEdit *age;
+    QLabel *label_11;
 
     void setupUi(QDialog *Enroll)
     {
@@ -68,102 +64,6 @@ public:
         label_photo = new QLabel(Enroll);
         label_photo->setObjectName(QString::fromUtf8("label_photo"));
         label_photo->setGeometry(QRect(820, 343, 161, 131));
-        formLayoutWidget = new QWidget(Enroll);
-        formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
-        formLayoutWidget->setGeometry(QRect(50, 150, 751, 497));
-        formLayout = new QFormLayout(formLayoutWidget);
-        formLayout->setObjectName(QString::fromUtf8("formLayout"));
-        formLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(formLayoutWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-
-        formLayout->setWidget(0, QFormLayout::LabelRole, label);
-
-        name = new QLineEdit(formLayoutWidget);
-        name->setObjectName(QString::fromUtf8("name"));
-
-        formLayout->setWidget(0, QFormLayout::FieldRole, name);
-
-        label_2 = new QLabel(formLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
-
-        password1 = new QLineEdit(formLayoutWidget);
-        password1->setObjectName(QString::fromUtf8("password1"));
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, password1);
-
-        label_9 = new QLabel(formLayoutWidget);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, label_9);
-
-        password2 = new QLineEdit(formLayoutWidget);
-        password2->setObjectName(QString::fromUtf8("password2"));
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, password2);
-
-        label_6 = new QLabel(formLayoutWidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-
-        formLayout->setWidget(3, QFormLayout::LabelRole, label_6);
-
-        phone = new QLineEdit(formLayoutWidget);
-        phone->setObjectName(QString::fromUtf8("phone"));
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, phone);
-
-        label_8 = new QLabel(formLayoutWidget);
-        label_8->setObjectName(QString::fromUtf8("label_8"));
-
-        formLayout->setWidget(4, QFormLayout::LabelRole, label_8);
-
-        Name = new QLineEdit(formLayoutWidget);
-        Name->setObjectName(QString::fromUtf8("Name"));
-
-        formLayout->setWidget(4, QFormLayout::FieldRole, Name);
-
-        label_5 = new QLabel(formLayoutWidget);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-
-        formLayout->setWidget(5, QFormLayout::LabelRole, label_5);
-
-        sex = new QLineEdit(formLayoutWidget);
-        sex->setObjectName(QString::fromUtf8("sex"));
-
-        formLayout->setWidget(5, QFormLayout::FieldRole, sex);
-
-        label_7 = new QLabel(formLayoutWidget);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-
-        formLayout->setWidget(7, QFormLayout::LabelRole, label_7);
-
-        address = new QLineEdit(formLayoutWidget);
-        address->setObjectName(QString::fromUtf8("address"));
-
-        formLayout->setWidget(7, QFormLayout::FieldRole, address);
-
-        label_4 = new QLabel(formLayoutWidget);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        formLayout->setWidget(8, QFormLayout::LabelRole, label_4);
-
-        age = new QLineEdit(formLayoutWidget);
-        age->setObjectName(QString::fromUtf8("age"));
-
-        formLayout->setWidget(8, QFormLayout::FieldRole, age);
-
-        label_11 = new QLabel(formLayoutWidget);
-        label_11->setObjectName(QString::fromUtf8("label_11"));
-
-        formLayout->setWidget(9, QFormLayout::LabelRole, label_11);
-
-        signature = new QLineEdit(formLayoutWidget);
-        signature->setObjectName(QString::fromUtf8("signature"));
-
-        formLayout->setWidget(9, QFormLayout::FieldRole, signature);
-
         horizontalLayoutWidget = new QWidget(Enroll);
         horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(50, 50, 348, 80));
@@ -291,6 +191,54 @@ public:
 "	background-color: rgb(100, 100, 100);\n"
 "	border-style: inset;\n"
 "}"));
+        signature = new QTextEdit(Enroll);
+        signature->setObjectName(QString::fromUtf8("signature"));
+        signature->setGeometry(QRect(120, 530, 661, 111));
+        label_2 = new QLabel(Enroll);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(51, 182, 60, 23));
+        password1 = new QLineEdit(Enroll);
+        password1->setObjectName(QString::fromUtf8("password1"));
+        password1->setGeometry(QRect(117, 182, 661, 25));
+        label_9 = new QLabel(Enroll);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(51, 225, 60, 23));
+        password2 = new QLineEdit(Enroll);
+        password2->setObjectName(QString::fromUtf8("password2"));
+        password2->setGeometry(QRect(117, 225, 661, 25));
+        label_6 = new QLabel(Enroll);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setGeometry(QRect(51, 276, 30, 23));
+        phone = new QLineEdit(Enroll);
+        phone->setObjectName(QString::fromUtf8("phone"));
+        phone->setGeometry(QRect(117, 276, 661, 25));
+        label_8 = new QLabel(Enroll);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setGeometry(QRect(51, 327, 30, 23));
+        Name = new QLineEdit(Enroll);
+        Name->setObjectName(QString::fromUtf8("Name"));
+        Name->setGeometry(QRect(117, 327, 661, 25));
+        label_5 = new QLabel(Enroll);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(51, 378, 30, 23));
+        sex = new QLineEdit(Enroll);
+        sex->setObjectName(QString::fromUtf8("sex"));
+        sex->setGeometry(QRect(117, 378, 661, 25));
+        selfinfo = new QLabel(Enroll);
+        selfinfo->setObjectName(QString::fromUtf8("selfinfo"));
+        selfinfo->setGeometry(QRect(51, 429, 60, 23));
+        address = new QLineEdit(Enroll);
+        address->setObjectName(QString::fromUtf8("address"));
+        address->setGeometry(QRect(117, 429, 661, 25));
+        label_4 = new QLabel(Enroll);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(51, 480, 30, 23));
+        age = new QLineEdit(Enroll);
+        age->setObjectName(QString::fromUtf8("age"));
+        age->setGeometry(QRect(117, 480, 661, 25));
+        label_11 = new QLabel(Enroll);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setGeometry(QRect(50, 530, 60, 23));
 
         retranslateUi(Enroll);
 
@@ -301,15 +249,6 @@ public:
     {
         Enroll->setWindowTitle(QApplication::translate("Enroll", "Dialog", nullptr));
         label_photo->setText(QString());
-        label->setText(QApplication::translate("Enroll", "\346\263\250\345\206\214\350\264\246\345\217\267", nullptr));
-        label_2->setText(QApplication::translate("Enroll", "\346\263\250\345\206\214\345\257\206\347\240\201", nullptr));
-        label_9->setText(QApplication::translate("Enroll", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
-        label_6->setText(QApplication::translate("Enroll", "\347\224\265\350\257\235", nullptr));
-        label_8->setText(QApplication::translate("Enroll", "\345\247\223\345\220\215", nullptr));
-        label_5->setText(QApplication::translate("Enroll", "\346\200\247\345\210\253", nullptr));
-        label_7->setText(QApplication::translate("Enroll", "\345\256\266\345\272\255\344\275\217\345\235\200", nullptr));
-        label_4->setText(QApplication::translate("Enroll", "\345\271\264\351\276\204", nullptr));
-        label_11->setText(QApplication::translate("Enroll", "\344\270\252\346\200\247\347\255\276\345\220\215", nullptr));
         label_3->setText(QApplication::translate("Enroll", "\351\200\211\346\213\251\350\272\253\344\273\275", nullptr));
         choose1->setText(QApplication::translate("Enroll", "\345\214\273\347\224\237", nullptr));
         choose2->setText(QApplication::translate("Enroll", "\347\227\205\346\202\243", nullptr));
@@ -317,6 +256,14 @@ public:
         exit->setText(QApplication::translate("Enroll", "\351\200\200\345\207\272", nullptr));
         label_12->setText(QString());
         choose->setText(QApplication::translate("Enroll", "\351\200\211\346\213\251\345\244\264\345\203\217", nullptr));
+        label_2->setText(QApplication::translate("Enroll", "\346\263\250\345\206\214\345\257\206\347\240\201", nullptr));
+        label_9->setText(QApplication::translate("Enroll", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
+        label_6->setText(QApplication::translate("Enroll", "\347\224\265\350\257\235", nullptr));
+        label_8->setText(QApplication::translate("Enroll", "\345\247\223\345\220\215", nullptr));
+        label_5->setText(QApplication::translate("Enroll", "\346\200\247\345\210\253", nullptr));
+        selfinfo->setText(QApplication::translate("Enroll", "\345\256\266\345\272\255\344\275\217\345\235\200", nullptr));
+        label_4->setText(QApplication::translate("Enroll", "\345\271\264\351\276\204", nullptr));
+        label_11->setText(QApplication::translate("Enroll", "\344\270\252\346\200\247\347\255\276\345\220\215", nullptr));
     } // retranslateUi
 
 };

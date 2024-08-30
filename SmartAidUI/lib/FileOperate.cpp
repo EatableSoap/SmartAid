@@ -14,14 +14,18 @@ bool FileOperate::isDirExist(QString FullPath){
 }
 
 QByteArray* FileOperate::PicToQByte(QString& PicPath){
-    QImage Pic;
-    Pic.load(PicPath);
-    QByteArray *imageArray=new QByteArray;
-    QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly);
-    Pic.save(&buffer,"JPG");
-    imageArray->append(buffer.data());
-    return imageArray;
+    QImage Pic(PicPath);
+    if(!Pic.isNull())
+    {
+        QByteArray *imageArray=new QByteArray;
+        QBuffer buffer;
+        buffer.open(QIODevice::WriteOnly);
+        Pic.save(&buffer,"JPG");
+        imageArray->append(buffer.data());
+        return imageArray;
+    }else{
+        return new QByteArray;
+    }
 }
 
 QString FileOperate::pwdHash(QString& password){

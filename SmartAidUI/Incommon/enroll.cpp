@@ -1,6 +1,8 @@
 #include "enroll.h"
 #include "ui_enroll.h"
 
+QByteArray* avatarpic;
+
 Enroll::Enroll(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Enroll)
@@ -11,16 +13,7 @@ Enroll::Enroll(QWidget *parent) :
     QDesktopWidget *deskdop=QApplication::desktop();
     move((deskdop->width()-this->width())/2, (deskdop->height()-this->height())/2);
     connect(ui->exit,&QPushButton::clicked,this,&Enroll::onExit);
-//    QtMaterialFlatButton *btn=new QtMaterialFlatButton(this);
-//    btn->setForegroundColor(QColor(132,112,255));
-//    btn->setGeometry(80,0,900,50);
-//    btn->setText("个人信息注册");
-//    btn->applyPreset(Material::FlatPreset);
-//    QFont font;
-//    font.setFamily("Calibri Light");
-//    font.setPixelSize(30);
-//    btn->setFont(font);
-    client = new socketClient("10.171.147.10",1234);
+    client = new socketClient("10.171.147.20",1234);
 }
 
 Enroll::~Enroll()
@@ -31,34 +24,55 @@ Enroll::~Enroll()
 
 void Enroll::on_choose_clicked()
 {
-
+    QString filename = QFileDialog::getOpenFileName(this,tr("打开图片"),QDir::homePath(),tr("(*.jpg)\n(*.png"));
+    avatarpic = FileOperate::PicToQByte(filename);
 }
 
 void Enroll::on_enroll_clicked()
 {
-     QString name = ui->name->text();
-     QString password = ui->password1->text();
-     QString phone = ui->phone->text();
-     QString Name = ui->Name->text();
-     QString signature = ui->signature->text();
-     QString sex = ui->sex->text();
-     QString address = ui->address->text();
-     QString age = ui->age->text();
-         QJsonObject* uploadavatar = new QJsonObject;
-         uploadavatar->insert("CMD","B00000");
+    if(!avatarpic->isNull())
+    {
+        QString password = ui->password1->text();
+        QString phone = ui->phone->text();
+        QString Name = ui->Name->text();
+        QString signature = ui->signature->placeholderText();
+        QString sex = ui->sex->text();
+        QString address = ui->address->text();
+        int age = ui->age->text().toInt();
+        const QByteArray avatar = *avatarpic;
+        QJsonObject uploadavatar;
+        uploadavatar.insert("CMD","B00000");
 
-         QJsonObject Args;
-         //Args.insert("Identity",2-ApIasd);
-         Args.insert("UserID",name.toLongLong());
-         //Args.insert("AvatarPic",photo);
-         Args.insert("Password",password);
-         Args.insert("UserName",Name);
-         Args.insert("Sex",sex);
-         Args.insert("Age",age);
-         Args.insert("SelfAddress",address);
-         Args.insert("PhoneNumber",phone);
-         Args.insert("Signature",signature);
-         uploadavatar->insert("Args",Args);
+        QJsonObject Args;
+        Args.insert("Identity",client->shareValue->identity);
+        Args.insert("UserID",QDateTime::currentDateTime().toMSecsSinceEpoch());
+        Args.insert("Password",password);
+        Args.insert("UserName",Name);
+        Args.insert("Sex",sex);
+        Args.insert("Age",age);
+        Args.insert("SelfAddress",address);
+        Args.insert("PhoneNumber",phone);
+        Args.insert("Signature",signature);
+        uploadavatar.insert("Args",Args);
+
+        //连接到主机
+        if(client->shareValue->sharedsocket->state()!=QTcpSocket::ConnectedState)
+            client->tryconnect();
+        client->sendCommand(uploadavatar,avatar);
+
+        client->shareValue->sharedsocket->waitForReadyRead(3000);
+        QJsonObject ReturnPack = client->RecvJson;
+
+        QMessageBox::information(NULL,"提示",ReturnPack.value("Result").toString(),QMessageBox::Yes);
+        if(ReturnPack.value("Result").toString().contains("成功")){
+            emit switchToLast();
+            this->hide();
+            client->shareValue->sharedsocket->disconnectFromHost();
+        }
+    }
+    else{
+        QMessageBox::information(NULL,"提示","请选择头像！",QMessageBox::Yes);
+    }
 }
 
 void Enroll::on_password2_textEdited()
@@ -68,16 +82,26 @@ void Enroll::on_password2_textEdited()
     ui->label_12->setText("密码不同");
     ui->label_12->setStyleSheet("color:red;");
     if(s1==s2)
-    {
         ui->label_12->setText("密码相同");
-    }
 }
-
-
 
 void Enroll::onExit()
 {
     emit switchToLast();
     this->hide();
+    if(client->shareValue->sharedsocket->state()==QTcpSocket::ConnectedState)
+        client->shareValue->sharedsocket->disconnectFromHost();
+}
+
+void Enroll::on_choose1_clicked()
+{
+    client->shareValue->identity=1;
+    ui->selfinfo->setText("就诊科室");
+}
+
+void Enroll::on_choose2_clicked()
+{
+    client->shareValue->identity=0;
+    ui->selfinfo->setText("家庭住址");
 }
 
