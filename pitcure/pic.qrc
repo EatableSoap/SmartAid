@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>UI5.png</file>
+        <file>UI4.png</file>
+        <file>UI3.png</file>
+        <file>UI2.png</file>
+        <file>UI1.png</file>
+        <file>UI.png</file>
+        <file>room.png</file>
+        <file>preview-close.png</file>
+        <file>pic.qrc</file>
+        <file>eyes-open.png</file>
+        <file>doc.PNG.png</file>
+        <file>back.png</file>
+        <file>98BA1526F3F435F3E0E3F76251859D4B.jpg</file>
+        <file>1.PNG</file>
+    </qresource>
+</RCC>
