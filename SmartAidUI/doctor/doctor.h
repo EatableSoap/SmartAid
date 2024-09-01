@@ -1,14 +1,16 @@
 #ifndef DOCTOR_H
 #define DOCTOR_H
 
-#include "doctorinfor.h"
-#include "doctorcase.h"
-#include "doctorseeregister.h"
-#include "../Incommon/chatdialog.h"
-
 #include <QtWidgets>
 
-namespace Ui {
+#include "../Incommon/chatdialog.h"
+#include "doctorcase.h"
+#include "doctorinfor.h"
+#include "doctorseeregister.h"
+
+
+namespace Ui
+{
 class Doctor;
 }
 
@@ -16,15 +18,15 @@ class Doctor : public QDialog
 {
     Q_OBJECT
 
-signals:
+   signals:
     void switchToLast();
 
-public:
+   public:
     socketClient *client;
     explicit Doctor(QWidget *parent = nullptr);
     ~Doctor();
 
-private slots:
+   private slots:
     void on_selfinformation_clicked();
 
     void on_Case_clicked();
@@ -37,12 +39,12 @@ private slots:
 
     void on_exit_clicked();
 
-private:
-    Ui::Doctor *ui;
-    doctorinfor *doctorinforWidget;
-    doctorcase *doctorcaseWidget;
+   private:
+    Ui::Doctor        *ui;
+    doctorinfor       *doctorinforWidget;
+    doctorcase        *doctorcaseWidget;
     doctorseeregister *doctorseeregisterWidget;
-    ChatDialog *chatdiagWidget;
+    ChatDialog        *chatdiagWidget;
 };
 
-#endif // DOCTOR_H
+#endif  // DOCTOR_H

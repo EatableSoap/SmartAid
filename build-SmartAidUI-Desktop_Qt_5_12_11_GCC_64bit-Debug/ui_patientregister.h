@@ -22,58 +22,66 @@ QT_BEGIN_NAMESPACE
 
 class Ui_patientRegister
 {
-public:
+   public:
     QPushButton *exit;
-    QWidget *formLayoutWidget;
+    QWidget     *formLayoutWidget;
     QFormLayout *formLayout_2;
-    QLabel *label_3;
-    QLineEdit *patientID;
-    QLabel *label;
-    QLineEdit *doctorID;
-    QLabel *label_4;
-    QLineEdit *room;
-    QLabel *label_5;
-    QLabel *label_6;
-    QLineEdit *time;
-    QComboBox *FreecomboBox;
+    QLabel      *label_3;
+    QLineEdit   *patientID;
+    QLabel      *label;
+    QLineEdit   *doctorID;
+    QLabel      *label_4;
+    QLineEdit   *room;
+    QLabel      *label_5;
+    QLabel      *label_6;
+    QLineEdit   *time;
+    QComboBox   *FreecomboBox;
 
-    void setupUi(QWidget *patientRegister)
+    void         setupUi(QWidget *patientRegister)
     {
         if (patientRegister->objectName().isEmpty())
             patientRegister->setObjectName(QString::fromUtf8("patientRegister"));
         patientRegister->resize(1035, 581);
-        patientRegister->setStyleSheet(QString::fromUtf8("background-color: #F3E5F5;"));
+        patientRegister->setStyleSheet(
+            QString::fromUtf8("background-color: #F3E5F5;"));
         exit = new QPushButton(patientRegister);
         exit->setObjectName(QString::fromUtf8("exit"));
         exit->setGeometry(QRect(440, 470, 151, 71));
-        exit->setStyleSheet(QString::fromUtf8("QPushButton\n"
-"{\n"
-"	background-color: #473C8B; /*\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: outset;\n"
-"	border-width: 2px;\n"
-"	border-radius:5px; /*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
-"	border-color: #8B7355;\n"
-"	font: bold 36px;\n"
-"	min-width:2em;\n"
-"	color:white; /*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
-"	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
-"	padding: 5px;\n"
-"}\n"
-" \n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: rgb(0, 150, 0);\n"
-"}\n"
-" \n"
-"QPushButton:pressed\n"
-"{\n"
-"	background-color: #1E90FF; /*\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346\227\266\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: inset;\n"
-"}\n"
-"QPushButton:!enabled{\n"
-"	background-color: rgb(100, 100, 100);\n"
-"	border-style: inset;\n"
-"}"));
+        exit->setStyleSheet(QString::fromUtf8(
+            "QPushButton\n"
+            "{\n"
+            "	background-color: #473C8B; "
+            "/*\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: outset;\n"
+            "	border-width: 2px;\n"
+            "	border-radius:5px; "
+            "/*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
+            "	border-color: #8B7355;\n"
+            "	font: bold 36px;\n"
+            "	min-width:2em;\n"
+            "	color:white; "
+            "/*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
+            "	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
+            "	padding: 5px;\n"
+            "}\n"
+            " \n"
+            "QPushButton:hover\n"
+            "{\n"
+            "	background-color: rgb(0, 150, 0);\n"
+            "}\n"
+            " \n"
+            "QPushButton:pressed\n"
+            "{\n"
+            "	background-color: #1E90FF; "
+            "/*"
+            "\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346"
+            "\227\266\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: inset;\n"
+            "}\n"
+            "QPushButton:!enabled{\n"
+            "	background-color: rgb(100, 100, 100);\n"
+            "	border-style: inset;\n"
+            "}"));
         formLayoutWidget = new QWidget(patientRegister);
         formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
         formLayoutWidget->setGeometry(QRect(90, 70, 851, 391));
@@ -130,29 +138,43 @@ public:
 
         formLayout_2->setWidget(3, QFormLayout::FieldRole, FreecomboBox);
 
-
         retranslateUi(patientRegister);
 
         QMetaObject::connectSlotsByName(patientRegister);
-    } // setupUi
+    }  // setupUi
 
     void retranslateUi(QWidget *patientRegister)
     {
-        patientRegister->setWindowTitle(QApplication::translate("patientRegister", "Form", nullptr));
-        exit->setText(QApplication::translate("patientRegister", "\351\200\200\345\207\272", nullptr));
-        label_3->setText(QApplication::translate("patientRegister", "\346\202\243\350\200\205ID", nullptr));
-        label->setText(QApplication::translate("patientRegister", "\345\214\273\347\224\237ID", nullptr));
-        label_4->setText(QApplication::translate("patientRegister", "\345\260\261\350\257\212\347\247\221\345\256\244", nullptr));
-        label_5->setText(QApplication::translate("patientRegister", "\351\242\204\347\272\246\346\227\266\351\227\264", nullptr));
-        label_6->setText(QApplication::translate("patientRegister", "\351\242\204\347\272\246\346\227\266\351\225\277", nullptr));
-    } // retranslateUi
-
+        patientRegister->setWindowTitle(
+            QApplication::translate("patientRegister", "Form", nullptr));
+        exit->setText(QApplication::translate(
+            "patientRegister", "\351\200\200\345\207\272", nullptr));
+        label_3->setText(QApplication::translate(
+            "patientRegister", "\346\202\243\350\200\205ID", nullptr));
+        label->setText(QApplication::translate(
+            "patientRegister", "\345\214\273\347\224\237ID", nullptr));
+        label_4->setText(QApplication::translate(
+            "patientRegister",
+            "\345\260\261\350\257\212\347\247\221\345\256\244",
+            nullptr));
+        label_5->setText(QApplication::translate(
+            "patientRegister",
+            "\351\242\204\347\272\246\346\227\266\351\227\264",
+            nullptr));
+        label_6->setText(QApplication::translate(
+            "patientRegister",
+            "\351\242\204\347\272\246\346\227\266\351\225\277",
+            nullptr));
+    }  // retranslateUi
 };
 
-namespace Ui {
-    class patientRegister: public Ui_patientRegister {};
-} // namespace Ui
+namespace Ui
+{
+class patientRegister : public Ui_patientRegister
+{
+};
+}  // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_PATIENTREGISTER_H
+#endif  // UI_PATIENTREGISTER_H

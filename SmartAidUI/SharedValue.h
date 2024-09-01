@@ -3,15 +3,16 @@
 
 #include <QtNetwork>
 
-class SharedValue{
-public:
+class SharedValue
+{
+   public:
     QTcpSocket* sharedsocket = new QTcpSocket;
-    int identity = 0;
-    QString SavePath = "./tmp/";
-    QString DataBasePath = "./tmp/DataBase/";
-    SharedValue(QTcpSocket* socket,int iden,QString SavePath,QString DBPath);
+    int         identity = 0;
+    QString     SavePath = "./tmp/";
+    QString     DataBasePath = "./tmp/DataBase/";
+    SharedValue(QTcpSocket* socket, int iden, QString SavePath, QString DBPath);
     SharedValue();
     ~SharedValue();
 };
 
-#endif // SHAREDVALUE_H
+#endif  // SHAREDVALUE_H

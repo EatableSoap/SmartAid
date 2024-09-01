@@ -22,34 +22,36 @@ QT_BEGIN_NAMESPACE
 
 class Ui_doctorinfor
 {
-public:
-    QWidget *formLayoutWidget;
+   public:
+    QWidget     *formLayoutWidget;
     QFormLayout *formLayout;
-    QLabel *label_12;
-    QLineEdit *name;
-    QLabel *label_4;
-    QLineEdit *sex;
-    QLabel *label_3;
-    QLineEdit *age;
-    QLabel *label_5;
-    QLineEdit *phone;
-    QLabel *label_6;
-    QLineEdit *adress;
-    QLabel *label_7;
-    QLineEdit *signature;
-    QLabel *label;
-    QLineEdit *Name;
-    QWidget *horizontalLayoutWidget;
+    QLabel      *label_12;
+    QLineEdit   *name;
+    QLabel      *label_4;
+    QLineEdit   *sex;
+    QLabel      *label_3;
+    QLineEdit   *age;
+    QLabel      *label_5;
+    QLineEdit   *phone;
+    QLabel      *label_6;
+    QLineEdit   *adress;
+    QLabel      *label_7;
+    QLineEdit   *signature;
+    QLabel      *label;
+    QLineEdit   *Name;
+    QWidget     *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QPushButton *save;
     QPushButton *exit;
 
-    void setupUi(QWidget *doctorinfor)
+    void         setupUi(QWidget *doctorinfor)
     {
         if (doctorinfor->objectName().isEmpty())
             doctorinfor->setObjectName(QString::fromUtf8("doctorinfor"));
         doctorinfor->resize(1120, 630);
-        doctorinfor->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 #E0F7FA, stop: 1 #FFFFFF);"));
+        doctorinfor->setStyleSheet(
+            QString::fromUtf8("background: qlineargradient(x1: 0, y1: 0, x2: 1, "
+                              "y2: 1, stop: 0 #E0F7FA, stop: 1 #FFFFFF);"));
         formLayoutWidget = new QWidget(doctorinfor);
         formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
         formLayoutWidget->setGeometry(QRect(610, 10, 481, 487));
@@ -141,103 +143,138 @@ public:
         formLayout->setWidget(1, QFormLayout::FieldRole, Name);
 
         horizontalLayoutWidget = new QWidget(doctorinfor);
-        horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setObjectName(
+            QString::fromUtf8("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(670, 530, 361, 81));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         save = new QPushButton(horizontalLayoutWidget);
         save->setObjectName(QString::fromUtf8("save"));
-        save->setStyleSheet(QString::fromUtf8("QPushButton\n"
-"{\n"
-"	background-color: #473C8B; /*\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: outset;\n"
-"	border-width: 2px;\n"
-"	border-radius:5px; /*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
-"	border-color: #8B7355;\n"
-"	font: bold 40px;\n"
-"	min-width:2em;\n"
-"	color:white; /*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
-"	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
-"	padding: 5px;\n"
-"}\n"
-" \n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: rgb(0, 150, 0);\n"
-"}\n"
-" \n"
-"QPushButton:pressed\n"
-"{\n"
-"	background-color: #1E90FF; /*\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346\227\266\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: inset;\n"
-"}\n"
-"QPushButton:!enabled{\n"
-"	background-color: rgb(100, 100, 100);\n"
-"	border-style: inset;\n"
-"}"));
+        save->setStyleSheet(QString::fromUtf8(
+            "QPushButton\n"
+            "{\n"
+            "	background-color: #473C8B; "
+            "/*\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: outset;\n"
+            "	border-width: 2px;\n"
+            "	border-radius:5px; "
+            "/*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
+            "	border-color: #8B7355;\n"
+            "	font: bold 40px;\n"
+            "	min-width:2em;\n"
+            "	color:white; "
+            "/*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
+            "	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
+            "	padding: 5px;\n"
+            "}\n"
+            " \n"
+            "QPushButton:hover\n"
+            "{\n"
+            "	background-color: rgb(0, 150, 0);\n"
+            "}\n"
+            " \n"
+            "QPushButton:pressed\n"
+            "{\n"
+            "	background-color: #1E90FF; "
+            "/*"
+            "\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346"
+            "\227\266\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: inset;\n"
+            "}\n"
+            "QPushButton:!enabled{\n"
+            "	background-color: rgb(100, 100, 100);\n"
+            "	border-style: inset;\n"
+            "}"));
 
         horizontalLayout->addWidget(save);
 
         exit = new QPushButton(horizontalLayoutWidget);
         exit->setObjectName(QString::fromUtf8("exit"));
-        exit->setStyleSheet(QString::fromUtf8("QPushButton\n"
-"{\n"
-"	background-color: #473C8B; /*\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: outset;\n"
-"	border-width: 2px;\n"
-"	border-radius:5px; /*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
-"	border-color: #8B7355;\n"
-"	font: bold 40px;\n"
-"	min-width:2em;\n"
-"	color:white; /*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
-"	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
-"	padding: 5px;\n"
-"}\n"
-" \n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: rgb(0, 150, 0);\n"
-"}\n"
-" \n"
-"QPushButton:pressed\n"
-"{\n"
-"	background-color: #1E90FF; /*\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346\227\266\350\203\214\346\231\257\350\211\262*/ \n"
-"	border-style: inset;\n"
-"}\n"
-"QPushButton:!enabled{\n"
-"	background-color: rgb(100, 100, 100);\n"
-"	border-style: inset;\n"
-"}"));
+        exit->setStyleSheet(QString::fromUtf8(
+            "QPushButton\n"
+            "{\n"
+            "	background-color: #473C8B; "
+            "/*\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: outset;\n"
+            "	border-width: 2px;\n"
+            "	border-radius:5px; "
+            "/*\350\276\271\347\225\214\345\234\206\346\273\221*/\n"
+            "	border-color: #8B7355;\n"
+            "	font: bold 40px;\n"
+            "	min-width:2em;\n"
+            "	color:white; "
+            "/*\345\255\227\344\275\223\351\242\234\350\211\262*/\n"
+            "	font-family:\345\215\216\346\226\207\346\226\260\351\255\217;\n"
+            "	padding: 5px;\n"
+            "}\n"
+            " \n"
+            "QPushButton:hover\n"
+            "{\n"
+            "	background-color: rgb(0, 150, 0);\n"
+            "}\n"
+            " \n"
+            "QPushButton:pressed\n"
+            "{\n"
+            "	background-color: #1E90FF; "
+            "/*"
+            "\344\274\252\347\212\266\346\200\201\347\273\217\350\277\207\346"
+            "\227\266\350\203\214\346\231\257\350\211\262*/ \n"
+            "	border-style: inset;\n"
+            "}\n"
+            "QPushButton:!enabled{\n"
+            "	background-color: rgb(100, 100, 100);\n"
+            "	border-style: inset;\n"
+            "}"));
 
         horizontalLayout->addWidget(exit);
-
 
         retranslateUi(doctorinfor);
 
         QMetaObject::connectSlotsByName(doctorinfor);
-    } // setupUi
+    }  // setupUi
 
     void retranslateUi(QWidget *doctorinfor)
     {
-        doctorinfor->setWindowTitle(QApplication::translate("doctorinfor", "\344\270\252\344\272\272\344\277\241\346\201\257\346\237\245\347\234\213\344\270\216\347\274\226\350\276\221", nullptr));
-        label_12->setText(QApplication::translate("doctorinfor", "\345\247\223\345\220\215", nullptr));
-        label_4->setText(QApplication::translate("doctorinfor", "\346\200\247\345\210\253", nullptr));
-        label_3->setText(QApplication::translate("doctorinfor", "\345\271\264\351\276\204", nullptr));
-        label_5->setText(QApplication::translate("doctorinfor", "\347\224\265\350\257\235", nullptr));
-        label_6->setText(QApplication::translate("doctorinfor", "\346\211\200\345\261\236\347\247\221\345\256\244", nullptr));
-        label_7->setText(QApplication::translate("doctorinfor", "\344\270\252\346\200\247\347\255\276\345\220\215", nullptr));
-        label->setText(QApplication::translate("doctorinfor", "\347\224\250\346\210\267\345\220\215", nullptr));
-        save->setText(QApplication::translate("doctorinfor", "\344\277\235\345\255\230\344\270\216\346\233\264\346\226\260", nullptr));
-        exit->setText(QApplication::translate("doctorinfor", "\351\200\200\345\207\272", nullptr));
-    } // retranslateUi
-
+        doctorinfor->setWindowTitle(QApplication::translate(
+            "doctorinfor",
+            "\344\270\252\344\272\272\344\277\241\346\201\257\346\237\245\347"
+            "\234\213\344\270\216\347\274\226\350\276\221",
+            nullptr));
+        label_12->setText(QApplication::translate(
+            "doctorinfor", "\345\247\223\345\220\215", nullptr));
+        label_4->setText(QApplication::translate(
+            "doctorinfor", "\346\200\247\345\210\253", nullptr));
+        label_3->setText(QApplication::translate(
+            "doctorinfor", "\345\271\264\351\276\204", nullptr));
+        label_5->setText(QApplication::translate(
+            "doctorinfor", "\347\224\265\350\257\235", nullptr));
+        label_6->setText(QApplication::translate(
+            "doctorinfor",
+            "\346\211\200\345\261\236\347\247\221\345\256\244",
+            nullptr));
+        label_7->setText(QApplication::translate(
+            "doctorinfor",
+            "\344\270\252\346\200\247\347\255\276\345\220\215",
+            nullptr));
+        label->setText(QApplication::translate(
+            "doctorinfor", "\347\224\250\346\210\267\345\220\215", nullptr));
+        save->setText(QApplication::translate(
+            "doctorinfor",
+            "\344\277\235\345\255\230\344\270\216\346\233\264\346\226\260",
+            nullptr));
+        exit->setText(QApplication::translate(
+            "doctorinfor", "\351\200\200\345\207\272", nullptr));
+    }  // retranslateUi
 };
 
-namespace Ui {
-    class doctorinfor: public Ui_doctorinfor {};
-} // namespace Ui
+namespace Ui
+{
+class doctorinfor : public Ui_doctorinfor
+{
+};
+}  // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_DOCTORINFOR_H
+#endif  // UI_DOCTORINFOR_H
