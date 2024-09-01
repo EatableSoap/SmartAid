@@ -24,18 +24,24 @@ Enroll::~Enroll()
 
 void Enroll::on_choose_clicked()
 {
-    QString filename = QFileDialog::getOpenFileName(this,tr("打开图片"),QDir::homePath(),tr("(*.jpg)\n(*.png"));
-    avatarpic = FileOperate::PicToQByte(filename);
+    QString filename = QFileDialog::getOpenFileName(this,tr("打开图片"),QDir::homePath(),tr("(*.jpg)\n(*.png)"));
+    if(filename.size()){
+        avatarpic = FileOperate::PicToQByte(filename);
+        QImage image;
+        image.load(filename);
+        ui->label_photo->setPixmap(QPixmap::fromImage(image).scaled(ui->label_photo->size()));
+    }
 }
 
 void Enroll::on_enroll_clicked()
 {
+    ui->enroll->setDisabled(true);
     if(!avatarpic->isNull())
     {
         QString password = ui->password1->text();
         QString phone = ui->phone->text();
         QString Name = ui->Name->text();
-        QString signature = ui->signature->placeholderText();
+        QString signature = ui->signature->toPlainText();
         QString sex = ui->sex->text();
         QString address = ui->address->text();
         int age = ui->age->text().toInt();
@@ -45,12 +51,12 @@ void Enroll::on_enroll_clicked()
 
         QJsonObject Args;
         Args.insert("Identity",client->shareValue->identity);
-        Args.insert("UserID",QDateTime::currentDateTime().toMSecsSinceEpoch());
+        Args.insert("UserID",QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch()));
         Args.insert("Password",password);
         Args.insert("UserName",Name);
         Args.insert("Sex",sex);
         Args.insert("Age",age);
-        Args.insert("SelfAddress",address);
+        Args.insert(client->shareValue->identity? "APartment":"Address",address);
         Args.insert("PhoneNumber",phone);
         Args.insert("Signature",signature);
         uploadavatar.insert("Args",Args);
@@ -58,9 +64,9 @@ void Enroll::on_enroll_clicked()
         //连接到主机
         if(client->shareValue->sharedsocket->state()!=QTcpSocket::ConnectedState)
             client->tryconnect();
-        client->sendCommand(uploadavatar,avatar);
+        client->sendCommand(uploadavatar,avatar,"Avatar.jpg");
 
-        client->shareValue->sharedsocket->waitForReadyRead(3000);
+        client->shareValue->sharedsocket->waitForReadyRead(1000);
         QJsonObject ReturnPack = client->RecvJson;
 
         QMessageBox::information(NULL,"提示",ReturnPack.value("Result").toString(),QMessageBox::Yes);
@@ -73,6 +79,7 @@ void Enroll::on_enroll_clicked()
     else{
         QMessageBox::information(NULL,"提示","请选择头像！",QMessageBox::Yes);
     }
+    ui->enroll->setDisabled(false);
 }
 
 void Enroll::on_password2_textEdited()

@@ -1,6 +1,6 @@
 #include "socketServer.h"
 
-FileServer::FileServer(QObject *parent) : QTcpServer(parent), fileState(0), recvSize(0),
+FileServer::FileServer(QObject *parent) : QTcpServer(parent), fileState(0), recvSize(0),fileSize(0),
     HeadToInt(FileOperate::CommandHeadToInt()) {
     connect(this, &QTcpServer::newConnection, this, &FileServer::onNewConnection);
 }
@@ -151,6 +151,21 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
         return RequestOperate::QueryHistory(identity,Sender,Recipient,IsFile,SendTime,FileName);
     }
         break;
+    case 98:
+    {
+        qlonglong DoctorID = CommandArgs.value("DoctorID").toString().toLong();
+        QVector<int> *free = RequestOperate::QueryDoctorFree(DoctorID);
+        QJsonObject result;
+        QJsonObject ReturnValue;
+        QJsonArray freetime;
+        for(int t:*free){
+            free->append(t);
+        }
+        result.insert("Result","1");
+        ReturnValue.insert("FreeTime",freetime);
+        return result;
+    }
+        break;
     default:
     {
         QJsonObject result;
@@ -167,7 +182,7 @@ void FileServer::onNewConnection() {
     qDebug()<<"新连接！";
     QTcpSocket *clientSocket = nextPendingConnection();
     connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
-        handleClientRequest(clientSocket);
+        processCommand(clientSocket);
     });
     connect(clientSocket, &QTcpSocket::disconnected, this, [this, clientSocket]() {
 
@@ -176,78 +191,107 @@ void FileServer::onNewConnection() {
             {
                 qDebug()<<"用户"+QString::number(it)+"已断开连接";
                 userList.remove(it);
-
             }
-
         }
     });
 }
 
-void FileServer::handleClientRequest(QTcpSocket *clientSocket) {
-    switch (fileState) {
-    case 0:
-        processCommand(clientSocket);
-        break;
-    case 1:
-        readFileHeader(clientSocket);
-        break;
-    case 2:
-        receiveFileData(clientSocket);
-        break;
-    }
-}
-
 void FileServer::processCommand(QTcpSocket *clientSocket) {
     QByteArray commandByteArray = clientSocket->readAll();
-    QJsonObject *commandPack = MyQtJson::AnalysisByteArray(commandByteArray);
+    qbuff.append(commandByteArray);
 
-    int mayFile = HeadToInt->value(commandPack->value("CMD").toString());
-
-    if(mayFile==1){
-        qlonglong userid = commandPack->value("Args").toObject().value("UserID").toString().toLongLong();
-        userList[userid] = clientSocket;
+    if(QString(commandByteArray).contains("$$$START$$$")){
+        QByteArray temp = QString("").toUtf8();
+        qbuff.swap(temp);
+        qbuff.append(commandByteArray);
     }
-    else if (mayFile == 5) {
-        sendFile(clientSocket, commandPack,"Avatar.jpg");
-    } else if (HasFile.contains(mayFile)) {
-        if(mayFile==1||mayFile==2||mayFile==9||mayFile==12)
-            fileState = 1;
-        else
-            sendFile(clientSocket, commandPack);
-    } else {
-        sendResponse(clientSocket, commandPack);
+    if(QString(commandByteArray.mid(commandByteArray.size()-11)).contains("$$$$END$$$$")){
+        qbuff = qbuff.mid(11,qbuff.size()-11);
+        if (QString(qbuff).contains("$$$$$$$$")) {
+            // Handling file info header
+            QStringList acceptinfo = QString(qbuff).split("$$$$$$$$");
+            QStringList fileInfo = acceptinfo[1].split("&&");
+            QString fileName = fileInfo[0];
+            fileSize = fileInfo[1].toInt();
+
+            qbuff = qbuff.mid(acceptinfo[0].size()+acceptinfo[1].size()+16);
+
+            QJsonObject jsonObj = QJsonDocument::fromJson(acceptinfo[0].toUtf8()).object();
+
+            QJsonObject returnPack = this->AnalyzeCommand(jsonObj,qbuff);
+            QByteArray returnByteArray = QJsonDocument(returnPack).toJson();
+            clientSocket->write("$$$START$$$");
+            clientSocket->flush();
+            clientSocket->write(returnByteArray);
+            clientSocket->flush();
+            if(HeadToInt->value(jsonObj.value("CMD").toString()) == 5)
+            {
+                QString filePath = jsonObj.value("Args").toObject().value("Avatar").toString();
+                QByteArray *fileData = RequestOperate::DownloadFiles(filePath);
+                QString sendFileName = fileName;
+                int fileSize = fileData->size();
+                QString fileInfo = QString("%1&%2").arg(sendFileName).arg(fileSize);
+                clientSocket->write("$$$$$$$$");
+                clientSocket->flush();
+                clientSocket->write(fileInfo.toUtf8());
+                clientSocket->flush();
+                clientSocket->write("$$$$$$$$");
+                clientSocket->flush();
+                int sendbyte = 0;
+                while(sendbyte < fileSize){
+                    QByteArray buffer = fileData->mid(sendbyte,sendbyte+10239);
+                    sendbyte += clientSocket->write(buffer,10240);
+                    clientSocket->flush();
+                }
+            }
+            clientSocket->write("$$$$END$$$$");
+            clientSocket->flush();
+        }
+        else {
+            // Handle JSON response
+            commandPack = MyQtJson::AnalysisByteArray(commandByteArray);
+            int mayFile = HeadToInt->value(commandPack->value("CMD").toString());
+            if(mayFile==0){
+                qlonglong userid = commandPack->value("Args").toObject().value("UserID").toString().toLongLong();
+                userList[userid] = clientSocket;
+            }
+            sendResponse(clientSocket,commandPack);
+        }
     }
 }
-
+//TODO 一次性接收所有数据，以$$$$$$$$分割处理
 void FileServer::sendFile(QTcpSocket *clientSocket, QJsonObject *commandPack, const QString& FilePath) {
     QString filePath = commandPack->value("Args").toObject().value(FilePath).toString();
     QByteArray *fileData = RequestOperate::DownloadFiles(filePath);
     QString sendFileName = filePath.mid(filePath.lastIndexOf("/"));
     int fileSize = fileData->size();
     QString fileInfo = QString("%1&%2").arg(sendFileName).arg(fileSize);
+    clientSocket->write("$$$$$$$$");
+    clientSocket->flush();
     clientSocket->write(fileInfo.toUtf8());
-    clientSocket->waitForBytesWritten();
-    clientSocket->write(*fileData);
-    clientSocket->waitForBytesWritten();
+    clientSocket->flush();
+    clientSocket->write("$$$$$$$$");
+    clientSocket->flush();
+    int sendbyte = 0;
+    while(sendbyte < fileSize){
+        QByteArray buffer = fileData->mid(sendbyte,sendbyte+10239);
+        sendbyte += clientSocket->write(buffer,10240);
+        clientSocket->flush();
+    }
 }
 
 void FileServer::sendResponse(QTcpSocket *clientSocket, QJsonObject *commandPack) {
     QJsonObject returnPack = this->AnalyzeCommand(*commandPack);
     QByteArray returnByteArray = QJsonDocument(returnPack).toJson();
+    qDebug()<<returnByteArray;
+    clientSocket->write("$$$START$$$");
+    clientSocket->flush();
     clientSocket->write(returnByteArray);
-    clientSocket->waitForBytesWritten();
-    fileState = 0;
+    clientSocket->flush();
+    clientSocket->write("$$$$END$$$$");
+    clientSocket->flush();
 }
 
-void FileServer::readFileHeader(QTcpSocket *clientSocket) {
-    QString str = QString(clientSocket->readAll());
-    QStringList strlist = str.split("&");
-    filename = strlist.at(0);
-    fileSize = strlist.at(1).toInt();
-    qbuff.clear();
-    recvSize = 0;
-    fileState = 2;
-}
 
 void FileServer::receiveFileData(QTcpSocket *clientSocket) {
     qbuff.append(clientSocket->readAll());
@@ -256,7 +300,7 @@ void FileServer::receiveFileData(QTcpSocket *clientSocket) {
         QJsonObject returnPack = AnalyzeCommand(*commandPack, qbuff);
         QByteArray returnByteArray = QJsonDocument(returnPack).toJson();
         clientSocket->write(returnByteArray);
-        clientSocket->waitForBytesWritten();
+        clientSocket->flush();
         fileState = 0;
     }
 }

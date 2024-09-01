@@ -4,15 +4,15 @@
 
 QJsonObject RequestOperate::UserLogin(int identity, qlonglong UserID, QString& password){
     QJsonObject QueryAtt;
-    QString ident = identity ? "DoctorLoginInfo":"PatientLoginInfo";
-    QueryAtt["TableName"]=ident;
+    QString ident = identity ? "Doctor":"Patient";
+    QueryAtt["TableName"]=ident+"LoginInfo";
 
     QJsonArray SelectColumn;
     QJsonArray QueryConditionColumn;
     QJsonArray QueryConditionValue;
 
     SelectColumn.append("Password");
-    QueryConditionColumn.append(identity? "DoctorID":"PatientID");
+    QueryConditionColumn.append(ident + "ID");
     QueryConditionValue.append(UserID);
 
     QueryAtt.insert("SelectColumn",SelectColumn);
@@ -45,15 +45,15 @@ QJsonObject RequestOperate::UserRegister(
         QString& signature){
     //查询账号ID是否存在，存在则报错，反之则插入数据库
     QJsonObject QueryAtt;
-    QString ident = identity ? "DoctorLoginInfo":"PatientLoginInfo";
-    QueryAtt["TableName"]=ident;
+    QString ident = identity ? "Doctor":"Patient";
+    QueryAtt["TableName"]=(ident+"LoginInfo");
 
     QJsonArray SelectColumn;
     QJsonArray QueryConditionColumn;
     QJsonArray QueryConditionValue;
 
-    SelectColumn.append(identity? "DoctorID":"PatientID");
-    QueryConditionColumn.append(identity? "DoctorID":"PatientID");
+    SelectColumn.append(ident+"ID");
+    QueryConditionColumn.append(ident+"ID");
     QueryConditionValue.append(UserID);
 
     QueryAtt.insert("SelectColumn",SelectColumn);
@@ -77,11 +77,11 @@ QJsonObject RequestOperate::UserRegister(
 
         //打包插入数据
         QJsonObject InsertAtt;
-        InsertAtt.insert("TableName",ident);
+        InsertAtt.insert("TableName",ident+"LoginInfo");
         QJsonArray InsertColumn;
         QJsonArray InsertValue;
 
-        InsertColumn.append(identity? "DoctorID":"PatientID");
+        InsertColumn.append(ident+"ID");
         InsertColumn.append("Password");
 
         InsertValue.append(UserID);
@@ -92,24 +92,30 @@ QJsonObject RequestOperate::UserRegister(
 
         QString InsertResult=DataBaseInterface::ServerInsert(InsertAtt);
         if(QString("1") == InsertResult){
-            result.insert("Result","注册成功！");
+            result.insert("Result","注册成功！您的ID为"+QString::number(UserID));
+            InsertAtt["TableName"] = ident+"Profiles";
             InsertColumn.removeAt(1);
             InsertColumn.append("Name");
             InsertColumn.append("Age");
             InsertColumn.append("Sex");
+            InsertColumn.append("Avatar");
             InsertColumn.append("PhoneNumber");
-            InsertColumn.append("SelfAddress");
+            InsertColumn.append(identity? "Apartment":"Address");
             InsertColumn.append("Signature");
 
             InsertValue.removeAt(1);
             InsertValue.append(UserName);
             InsertValue.append(age);
             InsertValue.append(sex);
+            InsertValue.append(" ");
             InsertValue.append(PhoneNumber);
             InsertValue.append(SelfAddress);
             InsertValue.append(signature);
+
+            InsertAtt["InsertColumn"]=InsertColumn;
+            InsertAtt["InsertValue"]=InsertValue;
             QString InsertResult=DataBaseInterface::ServerInsert(InsertAtt);
-            assert(InsertResult == '1');
+            assert(InsertResult == "1");
             UploadAvatar(identity,UserID,AvatarPic);
         }
         else{
@@ -370,7 +376,8 @@ QJsonObject RequestOperate::Registration(qlonglong PatientID,qlonglong DoctorID,
 
 QJsonObject RequestOperate::QueryProfiles(int identity,qlonglong UserID){
     QJsonObject QueryAtt;
-    QueryAtt["TableName"] = identity?"DoctorProfiles":"PatientProfiles";
+    QString ident = identity?"Doctor":"Patient";
+    QueryAtt["TableName"] = ident+"Profiles";
 
     QJsonArray SelectColumn;
     QJsonArray QueryConditionColumn;

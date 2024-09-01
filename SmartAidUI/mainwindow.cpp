@@ -80,7 +80,7 @@ void MainWindow::on_LoginBtn_clicked()
     {
         QMessageBox::warning(NULL, "错误❌", "输入有误，请重新输入！", QMessageBox::Yes);
     }
-    else if(client->shareValue->identity==0&&client->shareValue->identity!=1){
+    else if(client->shareValue->identity!=0&&client->shareValue->identity!=1){
         QMessageBox::warning(NULL, "错误❌", "请您选择自己的身份信息！", QMessageBox::Yes);
     }
     else

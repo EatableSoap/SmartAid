@@ -65,69 +65,59 @@ QPushButton:!enabled{
      <x>90</x>
      <y>70</y>
      <width>851</width>
-     <height>381</height>
+     <height>391</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout_2">
     <item row="0" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>预约号</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="number"/>
-    </item>
-    <item row="1" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>患者ID</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="0" column="1">
      <widget class="QLineEdit" name="patientID"/>
     </item>
-    <item row="2" column="0">
+    <item row="1" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>医生ID</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="1" column="1">
      <widget class="QLineEdit" name="doctorID"/>
     </item>
-    <item row="3" column="0">
+    <item row="2" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>就诊科室</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="2" column="1">
      <widget class="QLineEdit" name="room"/>
     </item>
-    <item row="4" column="0">
+    <item row="3" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>预约时间</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QDateTimeEdit" name="dateTimeEdit"/>
-    </item>
-    <item row="5" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>预约时长</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="4" column="1">
      <widget class="QLineEdit" name="time"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="FreecomboBox"/>
     </item>
    </layout>
   </widget>

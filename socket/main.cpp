@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     }
     else{
         qDebug()<<"端口号"+QString::number(port)+"已被占用";
+        return 0;
     }
     return a.exec();
 }
