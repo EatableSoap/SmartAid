@@ -1,20 +1,22 @@
 #ifndef ENROLL_H
 #define ENROLL_H
 
+#include <QDateTime>
+#include <QDesktopWidget>
+#include <QDialog>
+#include <QFileDialog>
+#include <QLabel>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QRegExpValidator>
+#include <QVBoxLayout>
+#include <istream>
+
 #include "./lib/socketClient.h"
 
-#include <QDialog>
-#include <istream>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QFileDialog>
-#include <QPixmap>
-#include <QDesktopWidget>
-#include <QRegExpValidator>
-#include <QDateTime>
-#include <QMessageBox>
 
-namespace Ui {
+namespace Ui
+{
 class Enroll;
 }
 
@@ -22,15 +24,15 @@ class Enroll : public QDialog
 {
     Q_OBJECT
 
-signals:
+   signals:
     void switchToLast();
 
-public:
+   public:
     socketClient *client;
     explicit Enroll(QWidget *parent = nullptr);
     ~Enroll();
 
-private slots:
+   private slots:
 
     void on_enroll_clicked();
 
@@ -44,8 +46,8 @@ private slots:
 
     void on_choose2_clicked();
 
-private:
+   private:
     Ui::Enroll *ui;
 };
 
-#endif // ENROLL_H
+#endif  // ENROLL_H

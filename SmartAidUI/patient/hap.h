@@ -1,17 +1,19 @@
 #ifndef HAP_H
 #define HAP_H
 
-#include "./lib/socketClient.h"
-
-#include <QWidget>
-#include <QMainWindow>
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QMainWindow>
 #include <QMessageBox>
 #include <QMovie>
+#include <QWidget>
 #include <istream>
-#include <QDesktopWidget>
 
-namespace Ui {
+#include "./lib/socketClient.h"
+
+
+namespace Ui
+{
 class HAP;
 }
 
@@ -19,23 +21,22 @@ class HAP : public QWidget
 {
     Q_OBJECT
 
-signals:
+   signals:
     void switchToLast();
 
-public:
+   public:
     socketClient *client;
     explicit HAP(QWidget *parent = nullptr);
     ~HAP();
 
-private slots:
-
+   private slots:
 
     void on_putin_clicked();
 
     void onExit();
 
-private:
+   private:
     Ui::HAP *ui;
 };
 
-#endif // HAP_H
+#endif  // HAP_H

@@ -1,13 +1,15 @@
 #ifndef PATIENTCASE_H
 #define PATIENTCASE_H
 
-#include "./lib/socketClient.h"
-
+#include <QDesktopWidget>
 #include <QWidget>
 #include <istream>
-#include <QDesktopWidget>
 
-namespace Ui {
+#include "./lib/socketClient.h"
+
+
+namespace Ui
+{
 class patientcase;
 }
 
@@ -15,19 +17,19 @@ class patientcase : public QWidget
 {
     Q_OBJECT
 
-signals:
+   signals:
     void switchToLast();
 
-public:
+   public:
     socketClient *client;
     explicit patientcase(QWidget *parent = nullptr);
     ~patientcase();
 
-private slots:
+   private slots:
     void onExit();
 
-private:
+   private:
     Ui::patientcase *ui;
 };
 
-#endif // PATIENTCASE_H
+#endif  // PATIENTCASE_H
