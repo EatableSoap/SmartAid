@@ -8,8 +8,20 @@ QStringList DataBaseInterface::variantListToStringList(const QVariantList &varia
     return stringList;
 }
 
-QSqlQuery* DataBaseInterface::ServerQuery(const QJsonObject& QueryAttribution) {
+QSqlQuery* DataBaseInterface::ServerQuery(const QJsonObject& QueryAttribution, QString DBpath) {
     QSqlQuery* sqlQuery = new QSqlQuery;
+
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName(DBpath);
+        assert(database.open()==true);
+    }
 
     // 从 QueryAttribution 中获取需要的参数
     QString tableName = QueryAttribution["TableName"].toString();
@@ -26,15 +38,29 @@ QSqlQuery* DataBaseInterface::ServerQuery(const QJsonObject& QueryAttribution) {
     sqlQuery->prepare(query);
     sqlQuery->addBindValue(conditionValue);
     if (sqlQuery->exec()) {
+        database.close();
         return sqlQuery;
     } else {
         qDebug() << "查询失败:" << sqlQuery->lastError().text();
+        database.close();
         return new QSqlQuery; // 默认构造的 QSqlQuery 对象
     }
 }
 
-QString DataBaseInterface::ServerInsert(const QJsonObject& QueryAttribution) {
+QString DataBaseInterface::ServerInsert(const QJsonObject& QueryAttribution, QString DBpath) {
     QSqlQuery sqlQuery;
+
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName(DBpath);
+        assert(database.open()==true);
+    }
 
     // 从 QueryAttribution 中获取需要的参数
     QString tableName = QueryAttribution["TableName"].toString();
@@ -58,15 +84,30 @@ QString DataBaseInterface::ServerInsert(const QJsonObject& QueryAttribution) {
     }
 
     if (sqlQuery.exec()) {
+        database.close();
         return "1";
     } else {
         qDebug() << "插入失败:" << sqlQuery.lastError().text();
+        database.close();
         return "插入失败";
     }
 }
 
-QString DataBaseInterface::ServerUpdate(const QJsonObject& UpdateAttribution) {
+QString DataBaseInterface::ServerUpdate(const QJsonObject& UpdateAttribution, QString DBpath) {
     QSqlQuery sqlQuery;
+
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName(DBpath);
+        assert(database.open()==true);
+    }
+
     // 从 UpdateAttribution 中获取需要的参数
      QString tableName = UpdateAttribution["TableName"].toString();
      QStringList updateColumns = variantListToStringList(UpdateAttribution["UpdateColumn"].toArray().toVariantList());
@@ -90,9 +131,11 @@ QString DataBaseInterface::ServerUpdate(const QJsonObject& UpdateAttribution) {
      }
      sqlQuery.addBindValue(conditionValue);
      if (sqlQuery.exec()) {
+         database.close();
          return "1";
      } else {
          qDebug() << "更新失败:" << sqlQuery.lastError().text();
+         database.close();
          return "更新失败";
      }
 }

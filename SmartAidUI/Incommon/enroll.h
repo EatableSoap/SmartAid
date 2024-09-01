@@ -11,6 +11,8 @@
 #include <QPixmap>
 #include <QDesktopWidget>
 #include <QRegExpValidator>
+#include <QDateTime>
+#include <QMessageBox>
 
 namespace Ui {
 class Enroll;
@@ -37,6 +39,10 @@ private slots:
     void on_choose_clicked();
 
     void onExit();
+
+    void on_choose1_clicked();
+
+    void on_choose2_clicked();
 
 private:
     Ui::Enroll *ui;

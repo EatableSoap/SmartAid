@@ -35,6 +35,8 @@ private slots:
 
     void onExit();
 
+    void on_exit_clicked();
+
 private:
     Ui::Doctor *ui;
     doctorinfor *doctorinforWidget;

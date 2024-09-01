@@ -21,20 +21,18 @@ public:
 
 private slots:
     void onNewConnection();
-    void handleClientRequest(QTcpSocket *clientSocket);
     void processCommand(QTcpSocket *clientSocket);
     void sendFile(QTcpSocket *clientSocket, QJsonObject *commandPack, const QString& FilePath = "FilePath");
     void sendResponse(QTcpSocket *clientSocket, QJsonObject *commandPack);
-    void readFileHeader(QTcpSocket *clientSocket);
     void receiveFileData(QTcpSocket *clientSocket);
     //    void incomingConnection(qintptr socketDescriptor);
 
 private:
-    int fileState;
-    int recvSize;
+    int fileState=0;
+    int recvSize=0;
     QByteArray qbuff;
     QString filename;
-    int fileSize;
+    int fileSize=0;
     QJsonObject *commandPack;
     QVector<int> HasFile = {1,2,5,9,12,13,99};
     QMap<QString,int>* HeadToInt;

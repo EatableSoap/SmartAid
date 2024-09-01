@@ -31,7 +31,7 @@ public slots:
 private:
     QString serverAddress;
     int serverPort;
-
+    QByteArray qbuff;
 };
 
 

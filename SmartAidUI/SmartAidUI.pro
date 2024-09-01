@@ -22,7 +22,6 @@ SOURCES += \
     lib/MyQtJson.cpp \
     lib/RequestOperate.cpp \
     lib/socketClient.cpp \
-    lib/socketServer.cpp \
     main.cpp \
     mainwindow.cpp \
     patient/hap.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     lib/MyQtJson.h \
     lib/RequestOperate.h \
     lib/socketClient.h \
-    lib/socketServer.h \
     mainwindow.h \
     patient/hap.h \
     patient/patient.h \

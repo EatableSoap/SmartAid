@@ -1,11 +1,13 @@
 #include "MyQtJson.h"
 
 //接受Qt二进制流数据，输出对应的jsonObject,用完记得delete
-QJsonObject* MyQtJson::AnalysisByteArray(QByteArray data)
+QJsonObject* MyQtJson::AnalysisByteArray(QByteArray& data)
 {
+    QString datastr = QString::fromLocal8Bit(data);
     //检验文件完整性
     QJsonParseError json_error;
-    QJsonDocument jsonDoc(QJsonDocument::fromJson(data, &json_error));
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(datastr.toStdString().data(),  &json_error));
+    qDebug()<<"收到JSON"<<jsonDoc;
     if(json_error.error != QJsonParseError::NoError){
 
         qDebug() << "Json Error!";

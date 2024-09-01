@@ -11,7 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDateTimeEdit>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -26,8 +26,6 @@ public:
     QPushButton *exit;
     QWidget *formLayoutWidget;
     QFormLayout *formLayout_2;
-    QLabel *label_2;
-    QLineEdit *number;
     QLabel *label_3;
     QLineEdit *patientID;
     QLabel *label;
@@ -35,9 +33,9 @@ public:
     QLabel *label_4;
     QLineEdit *room;
     QLabel *label_5;
-    QDateTimeEdit *dateTimeEdit;
     QLabel *label_6;
     QLineEdit *time;
+    QComboBox *FreecomboBox;
 
     void setupUi(QWidget *patientRegister)
     {
@@ -78,69 +76,59 @@ public:
 "}"));
         formLayoutWidget = new QWidget(patientRegister);
         formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
-        formLayoutWidget->setGeometry(QRect(90, 70, 851, 381));
+        formLayoutWidget->setGeometry(QRect(90, 70, 851, 391));
         formLayout_2 = new QFormLayout(formLayoutWidget);
         formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
         formLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(formLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        formLayout_2->setWidget(0, QFormLayout::LabelRole, label_2);
-
-        number = new QLineEdit(formLayoutWidget);
-        number->setObjectName(QString::fromUtf8("number"));
-
-        formLayout_2->setWidget(0, QFormLayout::FieldRole, number);
-
         label_3 = new QLabel(formLayoutWidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        formLayout_2->setWidget(1, QFormLayout::LabelRole, label_3);
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, label_3);
 
         patientID = new QLineEdit(formLayoutWidget);
         patientID->setObjectName(QString::fromUtf8("patientID"));
 
-        formLayout_2->setWidget(1, QFormLayout::FieldRole, patientID);
+        formLayout_2->setWidget(0, QFormLayout::FieldRole, patientID);
 
         label = new QLabel(formLayoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
 
-        formLayout_2->setWidget(2, QFormLayout::LabelRole, label);
+        formLayout_2->setWidget(1, QFormLayout::LabelRole, label);
 
         doctorID = new QLineEdit(formLayoutWidget);
         doctorID->setObjectName(QString::fromUtf8("doctorID"));
 
-        formLayout_2->setWidget(2, QFormLayout::FieldRole, doctorID);
+        formLayout_2->setWidget(1, QFormLayout::FieldRole, doctorID);
 
         label_4 = new QLabel(formLayoutWidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
-        formLayout_2->setWidget(3, QFormLayout::LabelRole, label_4);
+        formLayout_2->setWidget(2, QFormLayout::LabelRole, label_4);
 
         room = new QLineEdit(formLayoutWidget);
         room->setObjectName(QString::fromUtf8("room"));
 
-        formLayout_2->setWidget(3, QFormLayout::FieldRole, room);
+        formLayout_2->setWidget(2, QFormLayout::FieldRole, room);
 
         label_5 = new QLabel(formLayoutWidget);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
-        formLayout_2->setWidget(4, QFormLayout::LabelRole, label_5);
-
-        dateTimeEdit = new QDateTimeEdit(formLayoutWidget);
-        dateTimeEdit->setObjectName(QString::fromUtf8("dateTimeEdit"));
-
-        formLayout_2->setWidget(4, QFormLayout::FieldRole, dateTimeEdit);
+        formLayout_2->setWidget(3, QFormLayout::LabelRole, label_5);
 
         label_6 = new QLabel(formLayoutWidget);
         label_6->setObjectName(QString::fromUtf8("label_6"));
 
-        formLayout_2->setWidget(5, QFormLayout::LabelRole, label_6);
+        formLayout_2->setWidget(4, QFormLayout::LabelRole, label_6);
 
         time = new QLineEdit(formLayoutWidget);
         time->setObjectName(QString::fromUtf8("time"));
 
-        formLayout_2->setWidget(5, QFormLayout::FieldRole, time);
+        formLayout_2->setWidget(4, QFormLayout::FieldRole, time);
+
+        FreecomboBox = new QComboBox(formLayoutWidget);
+        FreecomboBox->setObjectName(QString::fromUtf8("FreecomboBox"));
+
+        formLayout_2->setWidget(3, QFormLayout::FieldRole, FreecomboBox);
 
 
         retranslateUi(patientRegister);
@@ -152,7 +140,6 @@ public:
     {
         patientRegister->setWindowTitle(QApplication::translate("patientRegister", "Form", nullptr));
         exit->setText(QApplication::translate("patientRegister", "\351\200\200\345\207\272", nullptr));
-        label_2->setText(QApplication::translate("patientRegister", "\351\242\204\347\272\246\345\217\267", nullptr));
         label_3->setText(QApplication::translate("patientRegister", "\346\202\243\350\200\205ID", nullptr));
         label->setText(QApplication::translate("patientRegister", "\345\214\273\347\224\237ID", nullptr));
         label_4->setText(QApplication::translate("patientRegister", "\345\260\261\350\257\212\347\247\221\345\256\244", nullptr));
