@@ -12,7 +12,7 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 0:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID =  QVariant(CommandArgs.value("UserID")).toLongLong();
         QString password = CommandArgs.value("Password").toString();
         QJsonObject result = RequestOperate::UserLogin(identity,UserID,password);
         if(result.value("Result") != "1"){
@@ -24,7 +24,7 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 1:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID = QVariant(CommandArgs.value("UserID")).toLongLong();
         QByteArray& AvatarPic = FileByte;
         QString password = CommandArgs.value("Password").toString();
         QString UserName = CommandArgs.value("UserName").toString();
@@ -40,7 +40,7 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 2:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID = QVariant(CommandArgs.value("UserID")).toLongLong();
         QByteArray& AvatarPic = FileByte;
         return RequestOperate::UploadAvatar(identity,UserID,AvatarPic);
     }
@@ -53,8 +53,8 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
         break;
     case 4:
     {
-        qlonglong PatientID = CommandArgs.value("PatientID").toString().toLongLong();
-        qlonglong DoctorID = CommandArgs.value("DoctorID").toString().toLongLong();
+        qlonglong PatientID = QVariant(CommandArgs.value("PatientID")).toLongLong();
+        qlonglong DoctorID = QVariant(CommandArgs.value("DoctorID")).toLongLong();
         int CurTime = CommandArgs.value("CurTime").toString().toInt();
         int duration = CommandArgs.value("Duration").toString().toInt();
         return RequestOperate::Registration(PatientID,DoctorID,CurTime,duration);
@@ -63,33 +63,33 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 5:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID = QVariant(CommandArgs.value("UserID")).toLongLong();
         return RequestOperate::QueryProfiles(identity,UserID);
     }
         break;
     case 6:
     {
-        qlonglong PatientID = CommandArgs.value("PatientID").toString().toLongLong();
+        qlonglong PatientID = QVariant(CommandArgs.value("PatientID")).toLongLong();
         return RequestOperate::QueryMedicalRecord(PatientID);
     }
         break;
     case 7:
     {
-        qlonglong PatientID = CommandArgs.value("PatientID").toString().toLongLong();
+        qlonglong PatientID = QVariant(CommandArgs.value("PatientID")).toLongLong();
         return RequestOperate::QueryPrescriptionPay(PatientID);
     }
         break;
     case 8:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID = QVariant(CommandArgs.value("UserID")).toLongLong();
         return RequestOperate::DPCommunication(identity,UserID);
     }
         break;
     case 9:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong UserID = CommandArgs.value("UserID").toString().toLongLong();
+        qlonglong UserID = QVariant(CommandArgs.value("UserID")).toLongLong();
         QString OldPassword = CommandArgs.value("OldPassword").toString();
         QString NewPassword = CommandArgs.value("NewPassword").toString();
         QByteArray& Avatar = FileByte;
@@ -105,7 +105,7 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
         break;
     case 10:
     {
-        qlonglong DoctorID = CommandArgs.value("DoctorID").toString().toLongLong();
+        qlonglong DoctorID = QVariant(CommandArgs.value("DoctorID")).toLongLong();
         return RequestOperate::QueryRegistration(DoctorID);
     }
         break;
@@ -121,8 +121,8 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 12:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong Sender = CommandArgs.value("Sender").toString().toLongLong();
-        qlonglong Recipient = CommandArgs.value("Recipient").toString().toLongLong();
+        qlonglong Sender = QVariant(CommandArgs.value("Sender")).toLongLong();
+        qlonglong Recipient = QVariant(CommandArgs.value("Recipient")).toLongLong();
         int SendTime = CommandArgs.value("SendTime").toInt();
         QString FilePath = CommandArgs.value("FilePath").toString();
         QString FileName = CommandArgs.value("FileName").toString();
@@ -141,8 +141,8 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
     case 13:
     {
         int identity = CommandArgs.value("Identity").toInt();
-        qlonglong Sender = CommandArgs.value("Sender").toString().toLongLong();
-        qlonglong Recipient = CommandArgs.value("Recipient").toString().toLongLong();
+        qlonglong Sender = QVariant(CommandArgs.value("Sender")).toLongLong();
+        qlonglong Recipient = QVariant(CommandArgs.value("Recipient")).toLongLong();
         int IsFile = CommandArgs.value("IsFile").toInt();
         int SendTime = CommandArgs.value("SendTime").toInt();
         QString FileName = " ";
@@ -153,7 +153,7 @@ QJsonObject FileServer::AnalyzeCommand(QJsonObject& CommandPack,QByteArray FileB
         break;
     case 98:
     {
-        qlonglong DoctorID = CommandArgs.value("DoctorID").toString().toLong();
+        qlonglong DoctorID = QVariant(CommandArgs.value("DoctorID")).toLongLong();
         QVector<int> *free = RequestOperate::QueryDoctorFree(DoctorID);
         QJsonObject result;
         QJsonObject ReturnValue;
@@ -206,7 +206,7 @@ void FileServer::processCommand(QTcpSocket *clientSocket) {
         qbuff.append(commandByteArray);
     }
     if(QString(commandByteArray.mid(commandByteArray.size()-11)).contains("$$$$END$$$$")){
-        qbuff = qbuff.mid(11,qbuff.size()-11);
+        qbuff = qbuff.mid(11,qbuff.size()-22);
         if (QString(qbuff).contains("$$$$$$$$")) {
             // Handling file info header
             QStringList acceptinfo = QString(qbuff).split("$$$$$$$$");
@@ -249,7 +249,7 @@ void FileServer::processCommand(QTcpSocket *clientSocket) {
         }
         else {
             // Handle JSON response
-            commandPack = MyQtJson::AnalysisByteArray(commandByteArray);
+            commandPack = MyQtJson::AnalysisByteArray(qbuff);
             int mayFile = HeadToInt->value(commandPack->value("CMD").toString());
             if(mayFile==0){
                 qlonglong userid = commandPack->value("Args").toObject().value("UserID").toString().toLongLong();

@@ -27,7 +27,7 @@ QSqlQuery* DataBaseInterface::ServerQuery(const QJsonObject& QueryAttribution, Q
     QString tableName = QueryAttribution["TableName"].toString();
     QStringList selectColumns = variantListToStringList(QueryAttribution["SelectColumn"].toArray().toVariantList());
     QStringList conditionColumns = variantListToStringList(QueryAttribution["QueryConditionColumn"].toArray().toVariantList());
-    QVariantList conditionValues = QueryAttribution["QueryConditionValue"].toArray().toVariantList();
+    QStringList conditionValues = variantListToStringList(QueryAttribution["QueryConditionValue"].toArray().toVariantList());
 
     // 构建 SQL 查询语句
     QString query = "SELECT ";
@@ -48,10 +48,17 @@ QSqlQuery* DataBaseInterface::ServerQuery(const QJsonObject& QueryAttribution, Q
         query += " WHERE " + conditionStrings.join(" AND ");
     }
 
+    qDebug()<<query;
     // 执行查询
     sqlQuery->prepare(query);
-    for (const QVariant& value : conditionValues) {
-        sqlQuery->addBindValue(value);
+
+    for (int i=0;i<conditionValues.size();i++) {
+        if(conditionColumns[i].contains("ID"))
+            sqlQuery->addBindValue(conditionValues[i].toLongLong());
+        else if(conditionColumns[i].contains("PhoneNumber")||conditionColumns[i].contains("Age"))
+            sqlQuery->addBindValue(conditionValues[i].toInt());
+        else
+            sqlQuery->addBindValue(conditionValues[i]);
     }
 
     if (sqlQuery->exec()) {

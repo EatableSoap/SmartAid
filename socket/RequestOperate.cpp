@@ -13,7 +13,7 @@ QJsonObject RequestOperate::UserLogin(int identity, qlonglong UserID, QString& p
 
     SelectColumn.append("Password");
     QueryConditionColumn.append(ident + "ID");
-    QueryConditionValue.append(UserID);
+    QueryConditionValue.append(QString::number(UserID));
 
     QueryAtt.insert("SelectColumn",SelectColumn);
     QueryAtt.insert("QueryConditionColumn",QueryConditionColumn);
@@ -22,6 +22,7 @@ QJsonObject RequestOperate::UserLogin(int identity, qlonglong UserID, QString& p
     QSqlQuery* QueryResult = DataBaseInterface::ServerQuery(QueryAtt);
     QJsonObject result;
     QJsonObject ReturnValue;
+
     if(!QueryResult->next()){
         result.insert("Result","账号或密码错误");
     }

@@ -51,7 +51,8 @@ void Enroll::on_enroll_clicked()
 
         QJsonObject Args;
         Args.insert("Identity",client->shareValue->identity);
-        Args.insert("UserID",QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch()));
+        qlonglong curtime = QDateTime::currentDateTime().toMSecsSinceEpoch();
+        Args.insert("UserID",curtime);
         Args.insert("Password",password);
         Args.insert("UserName",Name);
         Args.insert("Sex",sex);
